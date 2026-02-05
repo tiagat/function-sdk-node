@@ -43,6 +43,17 @@ const runFunction: FunctionRunnerServiceServer["runFunction"] = (
     conditions: [],
   };
 
+  response.requirements = {
+    resources: {
+      config: {
+        apiVersion: "v1",
+        kind: "ConfigMap",
+        matchName: "simple-config",
+      },
+    },
+    extraResources: {},
+  };
+
   logger.info("Running Function");
   callback(null, response);
 };
@@ -82,7 +93,8 @@ function main(): void {
         logger.error(`Failed to bind server: ${error}`);
         process.exit(1);
       }
-      logger.info(`gRPC server listening on port ${port}`);
+      logger.info("Function Started");
+      logger.debug(`gRPC server listening on port ${port}`);
     },
   );
 }
