@@ -1,28 +1,37 @@
 import * as grpc from "@grpc/grpc-js";
-import logger from "./logger";
 
 import config from "./config";
-import {
-  FunctionRunnerService,
-  RunFunctionResponse,
-} from "./gen/run_function_pb";
+import logger from "./logger";
 
-function runFunction(call: any, callback: any): void {
+import {
+  FunctionRunnerServiceService,
+  type RunFunctionRequest,
+  type RunFunctionResponse,
+  type FunctionRunnerServiceServer,
+} from "./gen/proto/run_function";
+
+const runFunction: FunctionRunnerServiceServer["runFunction"] = (
+  call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>,
+  callback: grpc.sendUnaryData<RunFunctionResponse>,
+): void => {
   const response: RunFunctionResponse = {
-    $typeName: "apiextensions.fn.proto.v1.RunFunctionResponse",
+    context: call.request.context,
+    desired: call.request.desired,
     results: [],
     conditions: [],
   };
+
+
   callback(null, response);
-}
+};
 
 function gracefulShutdown(signal: string, server: grpc.Server): void {
-  logger.info(`Received ${signal}, shutting down...`);
   const timeout = setTimeout(() => {
     logger.warn("Graceful shutdown timed out, forcing exit...");
     process.exit(1);
   }, config.grpc.shutdownTimeout);
-
+  
+  logger.info(`Received ${signal}, shutting down...`);
   server.tryShutdown((err) => {
     clearTimeout(timeout);
 
@@ -41,7 +50,7 @@ function main(): void {
     process.once(signal, () => gracefulShutdown(signal, server));
   });
 
-  server.addService(FunctionRunnerService, { runFunction: runFunction });
+  server.addService(FunctionRunnerServiceService, { runFunction });
 
   server.bindAsync(
     config.grpc.url,
@@ -51,7 +60,6 @@ function main(): void {
         logger.error(`Failed to bind server: ${error}`);
         process.exit(1);
       }
-
       logger.info(`gRPC server listening on port ${port}`);
     },
   );

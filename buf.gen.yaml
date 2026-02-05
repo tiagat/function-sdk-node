@@ -4,8 +4,8 @@ plugins:
     path: ./node_modules/.bin/protoc-gen-ts_proto
     out: src/gen
     opt:
-      - outputServices=grpc-js
       - esModuleInterop=true
+      - outputServices=grpc-js
+      - useExactTypes=false
       - useOptionals=messages
-      - outputJsonMethods=true
-      - forceLong=string
+      - env=node

@@ -318,12 +318,12 @@ export interface Credentials {
 
 /** CredentialData loaded by Crossplane, for example from a Secret. */
 export interface CredentialData {
-  data: { [key: string]: Uint8Array };
+  data: { [key: string]: Buffer };
 }
 
 export interface CredentialData_DataEntry {
   key: string;
-  value: Uint8Array;
+  value: Buffer;
 }
 
 /** Resources represents the state of several Crossplane resources. */
@@ -522,7 +522,7 @@ export interface Resource {
    * Connection details are only used for composition. They're ignored by
    * Operations.
    */
-  connectionDetails: { [key: string]: Uint8Array };
+  connectionDetails: { [key: string]: Buffer };
   /**
    * Ready indicates whether the resource should be considered ready.
    *
@@ -543,7 +543,7 @@ export interface Resource {
 
 export interface Resource_ConnectionDetailsEntry {
   key: string;
-  value: Uint8Array;
+  value: Buffer;
 }
 
 /** A Result of running a function. */
@@ -824,10 +824,10 @@ export const RunFunctionRequest: MessageFns<RunFunctionRequest> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RunFunctionRequest>, I>>(base?: I): RunFunctionRequest {
-    return RunFunctionRequest.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<RunFunctionRequest>): RunFunctionRequest {
+    return RunFunctionRequest.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<RunFunctionRequest>, I>>(object: I): RunFunctionRequest {
+  fromPartial(object: DeepPartial<RunFunctionRequest>): RunFunctionRequest {
     const message = createBaseRunFunctionRequest();
     message.meta = (object.meta !== undefined && object.meta !== null)
       ? RequestMeta.fromPartial(object.meta)
@@ -934,14 +934,10 @@ export const RunFunctionRequest_ExtraResourcesEntry: MessageFns<RunFunctionReque
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RunFunctionRequest_ExtraResourcesEntry>, I>>(
-    base?: I,
-  ): RunFunctionRequest_ExtraResourcesEntry {
-    return RunFunctionRequest_ExtraResourcesEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<RunFunctionRequest_ExtraResourcesEntry>): RunFunctionRequest_ExtraResourcesEntry {
+    return RunFunctionRequest_ExtraResourcesEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<RunFunctionRequest_ExtraResourcesEntry>, I>>(
-    object: I,
-  ): RunFunctionRequest_ExtraResourcesEntry {
+  fromPartial(object: DeepPartial<RunFunctionRequest_ExtraResourcesEntry>): RunFunctionRequest_ExtraResourcesEntry {
     const message = createBaseRunFunctionRequest_ExtraResourcesEntry();
     message.key = object.key ?? "";
     message.value = (object.value !== undefined && object.value !== null)
@@ -1016,14 +1012,10 @@ export const RunFunctionRequest_CredentialsEntry: MessageFns<RunFunctionRequest_
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RunFunctionRequest_CredentialsEntry>, I>>(
-    base?: I,
-  ): RunFunctionRequest_CredentialsEntry {
-    return RunFunctionRequest_CredentialsEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<RunFunctionRequest_CredentialsEntry>): RunFunctionRequest_CredentialsEntry {
+    return RunFunctionRequest_CredentialsEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<RunFunctionRequest_CredentialsEntry>, I>>(
-    object: I,
-  ): RunFunctionRequest_CredentialsEntry {
+  fromPartial(object: DeepPartial<RunFunctionRequest_CredentialsEntry>): RunFunctionRequest_CredentialsEntry {
     const message = createBaseRunFunctionRequest_CredentialsEntry();
     message.key = object.key ?? "";
     message.value = (object.value !== undefined && object.value !== null)
@@ -1098,13 +1090,11 @@ export const RunFunctionRequest_RequiredResourcesEntry: MessageFns<RunFunctionRe
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RunFunctionRequest_RequiredResourcesEntry>, I>>(
-    base?: I,
-  ): RunFunctionRequest_RequiredResourcesEntry {
-    return RunFunctionRequest_RequiredResourcesEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<RunFunctionRequest_RequiredResourcesEntry>): RunFunctionRequest_RequiredResourcesEntry {
+    return RunFunctionRequest_RequiredResourcesEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<RunFunctionRequest_RequiredResourcesEntry>, I>>(
-    object: I,
+  fromPartial(
+    object: DeepPartial<RunFunctionRequest_RequiredResourcesEntry>,
   ): RunFunctionRequest_RequiredResourcesEntry {
     const message = createBaseRunFunctionRequest_RequiredResourcesEntry();
     message.key = object.key ?? "";
@@ -1169,10 +1159,10 @@ export const Credentials: MessageFns<Credentials> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Credentials>, I>>(base?: I): Credentials {
-    return Credentials.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Credentials>): Credentials {
+    return Credentials.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Credentials>, I>>(object: I): Credentials {
+  fromPartial(object: DeepPartial<Credentials>): Credentials {
     const message = createBaseCredentials();
     message.credentialData = (object.credentialData !== undefined && object.credentialData !== null)
       ? CredentialData.fromPartial(object.credentialData)
@@ -1187,7 +1177,7 @@ function createBaseCredentialData(): CredentialData {
 
 export const CredentialData: MessageFns<CredentialData> = {
   encode(message: CredentialData, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    globalThis.Object.entries(message.data).forEach(([key, value]: [string, Uint8Array]) => {
+    globalThis.Object.entries(message.data).forEach(([key, value]: [string, Buffer]) => {
       CredentialData_DataEntry.encode({ key: key as any, value }, writer.uint32(10).fork()).join();
     });
     return writer;
@@ -1224,8 +1214,8 @@ export const CredentialData: MessageFns<CredentialData> = {
     return {
       data: isObject(object.data)
         ? (globalThis.Object.entries(object.data) as [string, any][]).reduce(
-          (acc: { [key: string]: Uint8Array }, [key, value]: [string, any]) => {
-            acc[key] = bytesFromBase64(value as string);
+          (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+            acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
           },
           {},
@@ -1237,7 +1227,7 @@ export const CredentialData: MessageFns<CredentialData> = {
   toJSON(message: CredentialData): unknown {
     const obj: any = {};
     if (message.data) {
-      const entries = globalThis.Object.entries(message.data) as [string, Uint8Array][];
+      const entries = globalThis.Object.entries(message.data) as [string, Buffer][];
       if (entries.length > 0) {
         obj.data = {};
         entries.forEach(([k, v]) => {
@@ -1248,13 +1238,13 @@ export const CredentialData: MessageFns<CredentialData> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CredentialData>, I>>(base?: I): CredentialData {
-    return CredentialData.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<CredentialData>): CredentialData {
+    return CredentialData.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<CredentialData>, I>>(object: I): CredentialData {
+  fromPartial(object: DeepPartial<CredentialData>): CredentialData {
     const message = createBaseCredentialData();
-    message.data = (globalThis.Object.entries(object.data ?? {}) as [string, Uint8Array][]).reduce(
-      (acc: { [key: string]: Uint8Array }, [key, value]: [string, Uint8Array]) => {
+    message.data = (globalThis.Object.entries(object.data ?? {}) as [string, Buffer][]).reduce(
+      (acc: { [key: string]: Buffer }, [key, value]: [string, Buffer]) => {
         if (value !== undefined) {
           acc[key] = value;
         }
@@ -1267,7 +1257,7 @@ export const CredentialData: MessageFns<CredentialData> = {
 };
 
 function createBaseCredentialData_DataEntry(): CredentialData_DataEntry {
-  return { key: "", value: new Uint8Array(0) };
+  return { key: "", value: Buffer.alloc(0) };
 }
 
 export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
@@ -1301,7 +1291,7 @@ export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
             break;
           }
 
-          message.value = reader.bytes();
+          message.value = Buffer.from(reader.bytes());
           continue;
         }
       }
@@ -1316,7 +1306,7 @@ export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
   fromJSON(object: any): CredentialData_DataEntry {
     return {
       key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
   },
 
@@ -1331,13 +1321,13 @@ export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<CredentialData_DataEntry>, I>>(base?: I): CredentialData_DataEntry {
-    return CredentialData_DataEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<CredentialData_DataEntry>): CredentialData_DataEntry {
+    return CredentialData_DataEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<CredentialData_DataEntry>, I>>(object: I): CredentialData_DataEntry {
+  fromPartial(object: DeepPartial<CredentialData_DataEntry>): CredentialData_DataEntry {
     const message = createBaseCredentialData_DataEntry();
     message.key = object.key ?? "";
-    message.value = object.value ?? new Uint8Array(0);
+    message.value = object.value ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -1390,10 +1380,10 @@ export const Resources: MessageFns<Resources> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Resources>, I>>(base?: I): Resources {
-    return Resources.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Resources>): Resources {
+    return Resources.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Resources>, I>>(object: I): Resources {
+  fromPartial(object: DeepPartial<Resources>): Resources {
     const message = createBaseResources();
     message.items = object.items?.map((e) => Resource.fromPartial(e)) || [];
     return message;
@@ -1550,10 +1540,10 @@ export const RunFunctionResponse: MessageFns<RunFunctionResponse> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RunFunctionResponse>, I>>(base?: I): RunFunctionResponse {
-    return RunFunctionResponse.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<RunFunctionResponse>): RunFunctionResponse {
+    return RunFunctionResponse.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<RunFunctionResponse>, I>>(object: I): RunFunctionResponse {
+  fromPartial(object: DeepPartial<RunFunctionResponse>): RunFunctionResponse {
     const message = createBaseRunFunctionResponse();
     message.meta = (object.meta !== undefined && object.meta !== null)
       ? ResponseMeta.fromPartial(object.meta)
@@ -1620,10 +1610,10 @@ export const RequestMeta: MessageFns<RequestMeta> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<RequestMeta>, I>>(base?: I): RequestMeta {
-    return RequestMeta.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<RequestMeta>): RequestMeta {
+    return RequestMeta.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<RequestMeta>, I>>(object: I): RequestMeta {
+  fromPartial(object: DeepPartial<RequestMeta>): RequestMeta {
     const message = createBaseRequestMeta();
     message.tag = object.tag ?? "";
     return message;
@@ -1737,10 +1727,10 @@ export const Requirements: MessageFns<Requirements> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Requirements>, I>>(base?: I): Requirements {
-    return Requirements.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Requirements>): Requirements {
+    return Requirements.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Requirements>, I>>(object: I): Requirements {
+  fromPartial(object: DeepPartial<Requirements>): Requirements {
     const message = createBaseRequirements();
     message.extraResources = (globalThis.Object.entries(object.extraResources ?? {}) as [string, ResourceSelector][])
       .reduce((acc: { [key: string]: ResourceSelector }, [key, value]: [string, ResourceSelector]) => {
@@ -1827,14 +1817,10 @@ export const Requirements_ExtraResourcesEntry: MessageFns<Requirements_ExtraReso
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Requirements_ExtraResourcesEntry>, I>>(
-    base?: I,
-  ): Requirements_ExtraResourcesEntry {
-    return Requirements_ExtraResourcesEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Requirements_ExtraResourcesEntry>): Requirements_ExtraResourcesEntry {
+    return Requirements_ExtraResourcesEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Requirements_ExtraResourcesEntry>, I>>(
-    object: I,
-  ): Requirements_ExtraResourcesEntry {
+  fromPartial(object: DeepPartial<Requirements_ExtraResourcesEntry>): Requirements_ExtraResourcesEntry {
     const message = createBaseRequirements_ExtraResourcesEntry();
     message.key = object.key ?? "";
     message.value = (object.value !== undefined && object.value !== null)
@@ -1909,10 +1895,10 @@ export const Requirements_ResourcesEntry: MessageFns<Requirements_ResourcesEntry
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Requirements_ResourcesEntry>, I>>(base?: I): Requirements_ResourcesEntry {
-    return Requirements_ResourcesEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Requirements_ResourcesEntry>): Requirements_ResourcesEntry {
+    return Requirements_ResourcesEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Requirements_ResourcesEntry>, I>>(object: I): Requirements_ResourcesEntry {
+  fromPartial(object: DeepPartial<Requirements_ResourcesEntry>): Requirements_ResourcesEntry {
     const message = createBaseRequirements_ResourcesEntry();
     message.key = object.key ?? "";
     message.value = (object.value !== undefined && object.value !== null)
@@ -2044,10 +2030,10 @@ export const ResourceSelector: MessageFns<ResourceSelector> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<ResourceSelector>, I>>(base?: I): ResourceSelector {
-    return ResourceSelector.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<ResourceSelector>): ResourceSelector {
+    return ResourceSelector.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<ResourceSelector>, I>>(object: I): ResourceSelector {
+  fromPartial(object: DeepPartial<ResourceSelector>): ResourceSelector {
     const message = createBaseResourceSelector();
     message.apiVersion = object.apiVersion ?? "";
     message.kind = object.kind ?? "";
@@ -2127,10 +2113,10 @@ export const MatchLabels: MessageFns<MatchLabels> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MatchLabels>, I>>(base?: I): MatchLabels {
-    return MatchLabels.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<MatchLabels>): MatchLabels {
+    return MatchLabels.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<MatchLabels>, I>>(object: I): MatchLabels {
+  fromPartial(object: DeepPartial<MatchLabels>): MatchLabels {
     const message = createBaseMatchLabels();
     message.labels = (globalThis.Object.entries(object.labels ?? {}) as [string, string][]).reduce(
       (acc: { [key: string]: string }, [key, value]: [string, string]) => {
@@ -2210,10 +2196,10 @@ export const MatchLabels_LabelsEntry: MessageFns<MatchLabels_LabelsEntry> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<MatchLabels_LabelsEntry>, I>>(base?: I): MatchLabels_LabelsEntry {
-    return MatchLabels_LabelsEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<MatchLabels_LabelsEntry>): MatchLabels_LabelsEntry {
+    return MatchLabels_LabelsEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<MatchLabels_LabelsEntry>, I>>(object: I): MatchLabels_LabelsEntry {
+  fromPartial(object: DeepPartial<MatchLabels_LabelsEntry>): MatchLabels_LabelsEntry {
     const message = createBaseMatchLabels_LabelsEntry();
     message.key = object.key ?? "";
     message.value = object.value ?? "";
@@ -2286,10 +2272,10 @@ export const ResponseMeta: MessageFns<ResponseMeta> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<ResponseMeta>, I>>(base?: I): ResponseMeta {
-    return ResponseMeta.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<ResponseMeta>): ResponseMeta {
+    return ResponseMeta.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<ResponseMeta>, I>>(object: I): ResponseMeta {
+  fromPartial(object: DeepPartial<ResponseMeta>): ResponseMeta {
     const message = createBaseResponseMeta();
     message.tag = object.tag ?? "";
     message.ttl = (object.ttl !== undefined && object.ttl !== null) ? Duration.fromPartial(object.ttl) : undefined;
@@ -2379,10 +2365,10 @@ export const State: MessageFns<State> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<State>, I>>(base?: I): State {
-    return State.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<State>): State {
+    return State.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<State>, I>>(object: I): State {
+  fromPartial(object: DeepPartial<State>): State {
     const message = createBaseState();
     message.composite = (object.composite !== undefined && object.composite !== null)
       ? Resource.fromPartial(object.composite)
@@ -2465,10 +2451,10 @@ export const State_ResourcesEntry: MessageFns<State_ResourcesEntry> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<State_ResourcesEntry>, I>>(base?: I): State_ResourcesEntry {
-    return State_ResourcesEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<State_ResourcesEntry>): State_ResourcesEntry {
+    return State_ResourcesEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<State_ResourcesEntry>, I>>(object: I): State_ResourcesEntry {
+  fromPartial(object: DeepPartial<State_ResourcesEntry>): State_ResourcesEntry {
     const message = createBaseState_ResourcesEntry();
     message.key = object.key ?? "";
     message.value = (object.value !== undefined && object.value !== null)
@@ -2487,7 +2473,7 @@ export const Resource: MessageFns<Resource> = {
     if (message.resource !== undefined) {
       Struct.encode(Struct.wrap(message.resource), writer.uint32(10).fork()).join();
     }
-    globalThis.Object.entries(message.connectionDetails).forEach(([key, value]: [string, Uint8Array]) => {
+    globalThis.Object.entries(message.connectionDetails).forEach(([key, value]: [string, Buffer]) => {
       Resource_ConnectionDetailsEntry.encode({ key: key as any, value }, writer.uint32(18).fork()).join();
     });
     if (message.ready !== 0) {
@@ -2544,16 +2530,16 @@ export const Resource: MessageFns<Resource> = {
       resource: isObject(object.resource) ? object.resource : undefined,
       connectionDetails: isObject(object.connectionDetails)
         ? (globalThis.Object.entries(object.connectionDetails) as [string, any][]).reduce(
-          (acc: { [key: string]: Uint8Array }, [key, value]: [string, any]) => {
-            acc[key] = bytesFromBase64(value as string);
+          (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+            acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
           },
           {},
         )
         : isObject(object.connection_details)
         ? (globalThis.Object.entries(object.connection_details) as [string, any][]).reduce(
-          (acc: { [key: string]: Uint8Array }, [key, value]: [string, any]) => {
-            acc[key] = bytesFromBase64(value as string);
+          (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+            acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
           },
           {},
@@ -2569,7 +2555,7 @@ export const Resource: MessageFns<Resource> = {
       obj.resource = message.resource;
     }
     if (message.connectionDetails) {
-      const entries = globalThis.Object.entries(message.connectionDetails) as [string, Uint8Array][];
+      const entries = globalThis.Object.entries(message.connectionDetails) as [string, Buffer][];
       if (entries.length > 0) {
         obj.connectionDetails = {};
         entries.forEach(([k, v]) => {
@@ -2583,14 +2569,14 @@ export const Resource: MessageFns<Resource> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Resource>, I>>(base?: I): Resource {
-    return Resource.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Resource>): Resource {
+    return Resource.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Resource>, I>>(object: I): Resource {
+  fromPartial(object: DeepPartial<Resource>): Resource {
     const message = createBaseResource();
     message.resource = object.resource ?? undefined;
-    message.connectionDetails = (globalThis.Object.entries(object.connectionDetails ?? {}) as [string, Uint8Array][])
-      .reduce((acc: { [key: string]: Uint8Array }, [key, value]: [string, Uint8Array]) => {
+    message.connectionDetails = (globalThis.Object.entries(object.connectionDetails ?? {}) as [string, Buffer][])
+      .reduce((acc: { [key: string]: Buffer }, [key, value]: [string, Buffer]) => {
         if (value !== undefined) {
           acc[key] = value;
         }
@@ -2602,7 +2588,7 @@ export const Resource: MessageFns<Resource> = {
 };
 
 function createBaseResource_ConnectionDetailsEntry(): Resource_ConnectionDetailsEntry {
-  return { key: "", value: new Uint8Array(0) };
+  return { key: "", value: Buffer.alloc(0) };
 }
 
 export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDetailsEntry> = {
@@ -2636,7 +2622,7 @@ export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDeta
             break;
           }
 
-          message.value = reader.bytes();
+          message.value = Buffer.from(reader.bytes());
           continue;
         }
       }
@@ -2651,7 +2637,7 @@ export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDeta
   fromJSON(object: any): Resource_ConnectionDetailsEntry {
     return {
       key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(0),
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
     };
   },
 
@@ -2666,15 +2652,13 @@ export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDeta
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Resource_ConnectionDetailsEntry>, I>>(base?: I): Resource_ConnectionDetailsEntry {
-    return Resource_ConnectionDetailsEntry.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Resource_ConnectionDetailsEntry>): Resource_ConnectionDetailsEntry {
+    return Resource_ConnectionDetailsEntry.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Resource_ConnectionDetailsEntry>, I>>(
-    object: I,
-  ): Resource_ConnectionDetailsEntry {
+  fromPartial(object: DeepPartial<Resource_ConnectionDetailsEntry>): Resource_ConnectionDetailsEntry {
     const message = createBaseResource_ConnectionDetailsEntry();
     message.key = object.key ?? "";
-    message.value = object.value ?? new Uint8Array(0);
+    message.value = object.value ?? Buffer.alloc(0);
     return message;
   },
 };
@@ -2774,10 +2758,10 @@ export const Result: MessageFns<Result> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Result>, I>>(base?: I): Result {
-    return Result.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Result>): Result {
+    return Result.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Result>, I>>(object: I): Result {
+  fromPartial(object: DeepPartial<Result>): Result {
     const message = createBaseResult();
     message.severity = object.severity ?? 0;
     message.message = object.message ?? "";
@@ -2897,10 +2881,10 @@ export const Condition: MessageFns<Condition> = {
     return obj;
   },
 
-  create<I extends Exact<DeepPartial<Condition>, I>>(base?: I): Condition {
-    return Condition.fromPartial(base ?? ({} as any));
+  create(base?: DeepPartial<Condition>): Condition {
+    return Condition.fromPartial(base ?? {});
   },
-  fromPartial<I extends Exact<DeepPartial<Condition>, I>>(object: I): Condition {
+  fromPartial(object: DeepPartial<Condition>): Condition {
     const message = createBaseCondition();
     message.type = object.type ?? "";
     message.status = object.status ?? 0;
@@ -2960,28 +2944,11 @@ export const FunctionRunnerServiceClient = makeGenericClientConstructor(
 };
 
 function bytesFromBase64(b64: string): Uint8Array {
-  if ((globalThis as any).Buffer) {
-    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
-  } else {
-    const bin = globalThis.atob(b64);
-    const arr = new Uint8Array(bin.length);
-    for (let i = 0; i < bin.length; ++i) {
-      arr[i] = bin.charCodeAt(i);
-    }
-    return arr;
-  }
+  return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  if ((globalThis as any).Buffer) {
-    return globalThis.Buffer.from(arr).toString("base64");
-  } else {
-    const bin: string[] = [];
-    arr.forEach((byte) => {
-      bin.push(globalThis.String.fromCharCode(byte));
-    });
-    return globalThis.btoa(bin.join(""));
-  }
+  return globalThis.Buffer.from(arr).toString("base64");
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
@@ -2991,10 +2958,6 @@ export type DeepPartial<T> = T extends Builtin ? T
   : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
   : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-type KeysOfUnion<T> = T extends T ? keyof T : never;
-export type Exact<P, I extends P> = P extends Builtin ? P
-  : P & { [K in keyof P]: Exact<P[K], I[K]> } & { [K in Exclude<keyof I, KeysOfUnion<P>>]: never };
 
 function isObject(value: any): boolean {
   return typeof value === "object" && value !== null;
@@ -3009,6 +2972,6 @@ export interface MessageFns<T> {
   decode(input: BinaryReader | Uint8Array, length?: number): T;
   fromJSON(object: any): T;
   toJSON(message: T): unknown;
-  create<I extends Exact<DeepPartial<T>, I>>(base?: I): T;
-  fromPartial<I extends Exact<DeepPartial<T>, I>>(object: I): T;
+  create(base?: DeepPartial<T>): T;
+  fromPartial(object: DeepPartial<T>): T;
 }
