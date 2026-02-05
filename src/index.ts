@@ -1,3 +1,10 @@
+import { FunctionRuntime } from './function-runtime';
+
+
+function main(): void {
+  new FunctionRuntime();
+}
+main();
 
 // @FunctionRunner()
 // function main(): void {
