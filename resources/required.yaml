@@ -1,0 +1,13 @@
+apiVersion: apiextensions.crossplane.io/v1beta1
+kind: EnvironmentConfig
+metadata:
+  annotations:
+  creationTimestamp: "2026-01-07T10:02:00Z"
+  generation: 1
+  name: cluster-metadata
+  resourceVersion: "13353228"
+data:
+  aws:
+    accountId: "610509364904"
+    region: eu-west-1
+  environment: development

@@ -1,0 +1,6 @@
+apiVersion: example.crossplane.io/v1
+kind: DummyClaim
+metadata:
+  name: dummy-claim
+spec:
+  region: us-east-2

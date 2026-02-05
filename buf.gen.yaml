@@ -1,0 +1,11 @@
+version: v1
+plugins:
+  - plugin: ts-proto
+    path: ./node_modules/.bin/protoc-gen-ts_proto
+    out: src/gen
+    opt:
+      - outputServices=grpc-js
+      - esModuleInterop=true
+      - useOptionals=messages
+      - outputJsonMethods=true
+      - forceLong=string
