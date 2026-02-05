@@ -1,102 +1,112 @@
-import * as grpc from "@grpc/grpc-js";
 
-import config from "./config";
-import logger from "./logger";
+// @FunctionRunner()
+// function main(): void {
 
-import {
-  FunctionRunnerServiceService,
-  Ready,
-  Resource,
-  type RunFunctionRequest,
-  type RunFunctionResponse,
-  type FunctionRunnerServiceServer,
-  type State,
-} from "./gen/proto/run_function";
+// }
 
-const runFunction: FunctionRunnerServiceServer["runFunction"] = (
-  call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>,
-  callback: grpc.sendUnaryData<RunFunctionResponse>,
-): void => {
-  const desired: State = call.request.desired || { resources: {} };
 
-  const newResource: Resource = {
-    resource: {
-      apiVersion: "v1",
-      kind: "ExampleResource",
-      metadata: {
-        name: "example-resource",
-      },
-      spec: {
-        exampleField: "exampleValue",
-      },
-    },
-    connectionDetails: {},
-    ready: Ready.READY_TRUE,
-  };
+// import * as grpc from "@grpc/grpc-js";
 
-  desired.resources.example = newResource;
+// import config from "./config";
+// import logger from "./logger";
 
-  const response: RunFunctionResponse = {
-    context: call.request.context || {},
-    desired,
-    results: [],
-    conditions: [],
-  };
+// import {
+//   FunctionRunnerServiceService,
+//   Ready,
+//   Resource,
+//   type RunFunctionRequest,
+//   type RunFunctionResponse,
+//   type FunctionRunnerServiceServer,
+//   type State,
+// } from "./gen/proto/run_function";
 
-  response.requirements = {
-    resources: {
-      config: {
-        apiVersion: "v1",
-        kind: "ConfigMap",
-        matchName: "simple-config",
-      },
-    },
-    extraResources: {},
-  };
+// const runFunction: FunctionRunnerServiceServer["runFunction"] = (
+//   call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>,
+//   callback: grpc.sendUnaryData<RunFunctionResponse>,
+// ): void => {
+//   const desired: State = call.request.desired || { resources: {} };
 
-  logger.info("Running Function");
-  callback(null, response);
-};
+//   const newResource: Resource = {
+//     resource: {
+//       apiVersion: "v1",
+//       kind: "ExampleResource",
+//       metadata: {
+//         name: "example-resource",
+//       },
+//       spec: {
+//         exampleField: "exampleValue",
+//       },
+//     },
+//     connectionDetails: {},
+//     ready: Ready.READY_TRUE,
+//   };
 
-function gracefulShutdown(signal: string, server: grpc.Server): void {
-  const timeout = setTimeout(() => {
-    logger.warn("Graceful shutdown timed out, forcing exit...");
-    process.exit(1);
-  }, config.grpc.shutdownTimeout);
+//   desired.resources.example = newResource;
 
-  logger.info(`Received ${signal}, shutting down...`);
-  server.tryShutdown((err) => {
-    clearTimeout(timeout);
+//   const response: RunFunctionResponse = {
+//     context: call.request.context || {},
+//     desired,
+//     results: [],
+//     conditions: [],
+//   };
 
-    if (err) {
-      logger.error(`Error during shutdown: ${err}`);
-      process.exit(1);
-    }
-    process.exit(0);
-  });
-}
+//   response.requirements = {
+//     resources: {
+//       config: {
+//         apiVersion: "v1",
+//         kind: "ConfigMap",
+//         matchName: "simple-config2",
+//       },
+//     },
+//     extraResources: {},
+//   };
 
-function main(): void {
-  const server = new grpc.Server();
+//   const t = call.request.requiredResources?.config?.items[0]?.resource;
+//   logger.info(`Requiring resource: ${t?.apiVersion} ${t?.kind} ${t?.matchName}`);
 
-  ["SIGINT", "SIGTERM"].forEach((signal) => {
-    process.once(signal, () => gracefulShutdown(signal, server));
-  });
+//   logger.info("Running Function");
+//   callback(null, response);
+// };
 
-  server.addService(FunctionRunnerServiceService, { runFunction });
+// function gracefulShutdown(signal: string, server: grpc.Server): void {
+//   const timeout = setTimeout(() => {
+//     logger.warn("Graceful shutdown timed out, forcing exit...");
+//     process.exit(1);
+//   }, config.grpc.shutdownTimeout);
 
-  server.bindAsync(
-    config.grpc.url,
-    grpc.ServerCredentials.createInsecure(),
-    (error, port) => {
-      if (error) {
-        logger.error(`Failed to bind server: ${error}`);
-        process.exit(1);
-      }
-      logger.info("Function Started");
-      logger.debug(`gRPC server listening on port ${port}`);
-    },
-  );
-}
+//   logger.info(`Received ${signal}, shutting down...`);
+//   server.tryShutdown((err) => {
+//     clearTimeout(timeout);
 
-main();
+//     if (err) {
+//       logger.error(`Error during shutdown: ${err}`);
+//       process.exit(1);
+//     }
+//     process.exit(0);
+//   });
+// }
+
+// function main(): void {
+//   const server = new grpc.Server();
+
+//   ["SIGINT", "SIGTERM"].forEach((signal) => {
+//     process.once(signal, () => gracefulShutdown(signal, server));
+//   });
+
+//   server.addService(FunctionRunnerServiceService, { runFunction });
+
+//   server.bindAsync(
+//     config.grpc.url,
+//     grpc.ServerCredentials.createInsecure(),
+//     (error, port) => {
+//       if (error) {
+//         logger.error(`Failed to bind server: ${error}`);
+//         process.exit(1);
+//       }
+//       logger.info("Function Started");
+//       logger.debug(`gRPC server listening on port ${port}`);
+//     },
+//   );
+// }
+
+// main();
