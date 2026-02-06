@@ -11,13 +11,13 @@ class MyFunction extends FunctionRuntime {
 
   @Handler()
   main(): void {
-    // this.logger.info("Function Handler (main)");
+    this.logger.info("Function Handler (main)");
     this.test();
   }
 
   @Handler()
   async mainAsync(): Promise<void> {
-    // this.logger.info("Function Handler (mainAsync)");
+    this.logger.info("Function Handler (mainAsync)");
   }
 
 }
