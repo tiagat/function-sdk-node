@@ -11,10 +11,10 @@ import {
 import { Entrypoint } from "./interfaces";
 
 const entrypoints: Entrypoint[] = [];
-let handlerInstance: unknown = null;
+let handlerInstance: object;
 
 // Store the runtime instance so handlers run with the correct `this` context.
-function setHandlerInstance(inst: unknown): void {
+function setHandlerInstance(inst: object): void {
   handlerInstance = inst;
 }
 
