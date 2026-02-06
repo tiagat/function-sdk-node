@@ -50,4 +50,4 @@ const grpcHandler: FunctionRunnerServiceServer["runFunction"] = (
 };
 
 export { FunctionRunnerServiceService, Handler };
-export { grpcHandler, runEntrypoints, setHandlerInstance };
+export { grpcHandler, setHandlerInstance };
