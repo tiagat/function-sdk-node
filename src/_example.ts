@@ -1,29 +1,23 @@
 
-import {
-  FunctionRuntime,
-  Handler,
-  Logger,
-} from "./index";
-
-
-const logger = new Logger();
+import { FunctionRuntime, Handler, Logger } from "./index";
 
 class MyFunction extends FunctionRuntime {
 
+  logger = new Logger();
   
-  test(): void {
-    logger.info("Test function");  
+  test() {
+    console.log(this.logger);
   }
 
   @Handler()
   main(): void {
-    logger.info("Function Handler (main)");
+    // this.logger.info("Function Handler (main)");
     this.test();
   }
 
   @Handler()
   async mainAsync(): Promise<void> {
-    logger.info("Function Handler (mainAsync)");
+    // this.logger.info("Function Handler (mainAsync)");
   }
 
 }
