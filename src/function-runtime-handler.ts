@@ -12,7 +12,7 @@ function Handler(): MethodDecorator {
 }
 
 function runEntrypoints(context: unknown): void {
-  entrypoints.forEach((fn) => fn.apply(context, []));
+  entrypoints.forEach((fn) => fn.apply(context, ['DEMO', 'EXAMPLE']));
 }
 
 export { Handler };
