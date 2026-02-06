@@ -5,18 +5,25 @@ import {
   Logger,
 } from "./index";
 
+
+const logger = new Logger();
+
 class MyFunction extends FunctionRuntime {
 
-  logger = new Logger();
+  
+  test(): void {
+    logger.info("Test function");  
+  }
 
   @Handler()
   main(): void {
-    this.logger.info("Function Handler (main)");
+    logger.info("Function Handler (main)");
+    this.test();
   }
 
   @Handler()
   async mainAsync(): Promise<void> {
-    this.logger.info("Function Handler (mainAsync)");
+    logger.info("Function Handler (mainAsync)");
   }
 
 }

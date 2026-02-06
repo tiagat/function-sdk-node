@@ -59,4 +59,7 @@ export {
     FunctionLoggerOptions as LoggerOptions
 }
 
-export default new FunctionLogger();
+
+const logger = new FunctionLogger();
+export default logger;
+
