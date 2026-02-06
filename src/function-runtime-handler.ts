@@ -1,49 +1,63 @@
+import { get } from 'http';
 import { Entrypoint } from './interfaces';
 
-const entrypoints: Entrypoint[] = [];
+interface EntrypointParameter {
+  index: number;
+  name: string;
+  value: unknown;
+}
+
+interface EntrypointMetadata {
+  fn: Entrypoint | undefined;
+  args: EntrypointParameter[];
+}
+
+const entrypoints: Map<string, EntrypointMetadata> = new Map();
+
+function getEntrypointMetadata(key: string): EntrypointMetadata {
+  const metadata = entrypoints.get(key);
+  if (!metadata) {
+    entrypoints.set(key, { fn: undefined, args: [] });
+  }
+  return entrypoints.get(key)!;
+}
+
+function setEntrypointMetadata(key: string, metadata: EntrypointMetadata): void {
+  entrypoints.set(key, metadata);
+}
 
 function Handler(): MethodDecorator {
-  return (_target, _propertyKey, descriptor) => {
+  return (_target, propertyKey, descriptor) => {
     const fn = descriptor.value as Entrypoint;
     if (typeof descriptor.value === 'function') {
-      entrypoints.push(fn);
+      const target = `${String(propertyKey)}`;
+      const metadata = getEntrypointMetadata(target);
+      metadata.fn = fn;
+      setEntrypointMetadata(target, metadata);
     }
   };
 }
 
 function runEntrypoints(context: unknown): void {
-  entrypoints.forEach((fn) => fn.apply(context, ['DEMO', 'EXAMPLE']));
+  for (const [_entrypoint, metadata] of entrypoints.entries()) {
+    if (metadata.fn) {
+      const argsMetadata = metadata.args.sort((a, b) => a.index - b.index);
+      const args = Array(argsMetadata.length);
+
+      for (const argMeta of argsMetadata) {
+        args[argMeta.index] = 'DEMO'; // CHANGE THIS
+      }
+
+      metadata.fn.apply(context, args);
+    }
+  }
+}
+
+function setEntrypoint(target: string, index: number, name: string, value: unknown): void {
+  const metadata = getEntrypointMetadata(target);
+  metadata.args.push({ index, name, value });
+  setEntrypointMetadata(target, metadata);
 }
 
 export { Handler };
-export { runEntrypoints };
-
-// const paramIndexByName = new Map<string, number>();
-
-// function FromContext(name: string): ParameterDecorator {
-//   return (target, propertyKey, parameterIndex) => {
-//     const key = `${String(propertyKey)}:${name}`;
-//     paramIndexByName.set(key, parameterIndex);
-//   };
-// }
-
-// function Handler(): MethodDecorator {
-//   return (_target, propertyKey, descriptor) => {
-//     const original = descriptor.value as (...args: any[]) => any;
-//     descriptor.value = function (...args: any[]) {
-//       const key = `${String(propertyKey)}:userId`;
-//       const index = paramIndexByName.get(key);
-//       if (index !== undefined) {
-//         args[index] = "injected-user-id";
-//       }
-//       return original.apply(this, args);
-//     };
-//   };
-// }
-
-// class Example {
-//   @Handler()
-//   run(@FromContext("userId") userId: string) {
-//     console.log(userId);
-//   }
-// }
+export { runEntrypoints, setEntrypoint };
