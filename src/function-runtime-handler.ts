@@ -53,11 +53,11 @@ function runEntrypoints(context: unknown): void {
   }
 }
 
-function setEntrypoint(target: string, index: number, name: string, value: unknown): void {
+function registerEntrypoint(target: string, index: number, name: string, value: unknown): void {
   const metadata = getEntrypointMetadata(target);
   metadata.args.push({ index, name, value });
   setEntrypointMetadata(target, metadata);
 }
 
 export { Handler };
-export { runEntrypoints, setEntrypoint };
+export { runEntrypoints, registerEntrypoint };
