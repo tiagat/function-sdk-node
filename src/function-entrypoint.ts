@@ -37,4 +37,8 @@ export class Entrypoint {
   static entries(): IterableIterator<[string, EntrypointMetadata]> {
     return Entrypoint.entrypoints.entries();
   }
+
+  static values(): IterableIterator<EntrypointMetadata> {
+    return Entrypoint.entrypoints.values();
+  }
 }

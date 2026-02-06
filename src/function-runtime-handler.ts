@@ -1,6 +1,5 @@
 import { Entrypoint, EntrypointFunction } from './function-entrypoint';
 
-
 function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
     const fn = descriptor.value as EntrypointFunction;
@@ -14,7 +13,7 @@ function Handler(): MethodDecorator {
 }
 
 function runEntrypoints(context: unknown): void {
-  for (const [_entrypoint, metadata] of Entrypoint.entries()) {
+  for (const metadata of Entrypoint.values()) {
     if (metadata.fn) {
       const argsMetadata = metadata.args.sort((a, b) => a.index - b.index);
       const args = Array(argsMetadata.length);
