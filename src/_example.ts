@@ -5,14 +5,9 @@ class MyFunction extends FunctionRuntime {
 
   logger = new Logger();
   
-  test() {
-    console.log(this.logger);
-  }
-
   @Handler()
   main(): void {
     this.logger.info("Function Handler (main)");
-    this.test();
   }
 
   @Handler()
