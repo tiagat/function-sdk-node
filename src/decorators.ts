@@ -1,4 +1,4 @@
-import { Entrypoint, EntrypointFunction } from './function-entrypoint';
+import { Entrypoint, EntrypointFunction } from './entrypoints';
 
 const DECORATOR_REQ_KEY = 'req';
 const DECORATOR_RES_KEY = 'res';

@@ -1,12 +1,12 @@
 export type EntrypointFunction = (...args: unknown[]) => void;
 
-interface EntrypointParameter {
+export interface EntrypointParameter {
   index: number;
   name: string;
   value: unknown;
 }
 
-interface EntrypointMetadata {
+export interface EntrypointMetadata {
   fn: EntrypointFunction | undefined;
   args: EntrypointParameter[];
 }

@@ -1,4 +1,4 @@
-import { Entrypoint } from './function-entrypoint';
+import { Entrypoint } from './entrypoints';
 
 function runEntrypoints(context: unknown): void {
   for (const metadata of Entrypoint.values()) {
