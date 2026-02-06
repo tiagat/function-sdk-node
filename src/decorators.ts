@@ -13,8 +13,8 @@ function Res(): ParameterDecorator {
 function Handler(): MethodDecorator {
   return (_target, _propertyKey, descriptor) => {
     if (typeof descriptor.value === "function") {
-      const fn = descriptor.value as Entrypoint;
-      entrypoints.push(fn);
+    //   const fn = descriptor.value as Entrypoint;
+    //   entrypoints.push(fn);
     }
   };
 }
