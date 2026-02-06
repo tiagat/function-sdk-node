@@ -9,6 +9,12 @@ class MyFunction extends FunctionRuntime {
   main(): void {
     logger.info("Function Handler (main)");
   }
+
+  @Handler()
+  async mainAsync(): Promise<void> {
+    logger.info("Function Handler (mainAsync)");
+  }
+
 }
 
 new MyFunction();
