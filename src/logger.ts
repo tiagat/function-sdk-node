@@ -1,14 +1,5 @@
-import {
-  BaseLogger,
-  DestinationStream,
-  LevelWithSilentOrString,
-  LogFn,
-  LoggerOptions,
-  pino,
-  type Logger,
-} from "pino";
-import config from "./config";
-
+import { BaseLogger, DestinationStream, LevelWithSilentOrString, LogFn, LoggerOptions, pino, type Logger } from 'pino';
+import config from './config';
 
 type FunctionLoggerOptions = LoggerOptions | DestinationStream;
 
@@ -17,8 +8,8 @@ const pinoDefaultSettings: FunctionLoggerOptions = {
   formatters: {
     level(label) {
       return { level: label };
-    },
-  },
+    }
+  }
 };
 
 class FunctionLogger implements BaseLogger {
@@ -53,10 +44,6 @@ class FunctionLogger implements BaseLogger {
   }
 }
 
-
-export {
-    FunctionLogger as Logger,
-    FunctionLoggerOptions as LoggerOptions
-}
+export { FunctionLogger as Logger, FunctionLoggerOptions as LoggerOptions };
 
 export default new FunctionLogger();

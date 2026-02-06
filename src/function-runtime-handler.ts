@@ -1,11 +1,11 @@
-import { Entrypoint } from "./interfaces";
+import { Entrypoint } from './interfaces';
 
 const entrypoints: Entrypoint[] = [];
 
 function Handler(): MethodDecorator {
   return (_target, _propertyKey, descriptor) => {
-    const fn = descriptor.value as Entrypoint;    
-    if (typeof descriptor.value === "function") {
+    const fn = descriptor.value as Entrypoint;
+    if (typeof descriptor.value === 'function') {
       entrypoints.push(fn);
     }
   };
@@ -17,7 +17,6 @@ function runEntrypoints(context: unknown): void {
 
 export { Handler };
 export { runEntrypoints };
-
 
 // const paramIndexByName = new Map<string, number>();
 

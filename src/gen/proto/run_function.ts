@@ -5,7 +5,7 @@
 // source: proto/run_function.proto
 
 /* eslint-disable */
-import { BinaryReader, BinaryWriter } from "@bufbuild/protobuf/wire";
+import { BinaryReader, BinaryWriter } from '@bufbuild/protobuf/wire';
 import {
   type CallOptions,
   type ChannelCredentials,
@@ -16,12 +16,12 @@ import {
   makeGenericClientConstructor,
   type Metadata,
   type ServiceError,
-  type UntypedServiceImplementation,
-} from "@grpc/grpc-js";
-import { Duration } from "../google/protobuf/duration";
-import { Struct } from "../google/protobuf/struct";
+  type UntypedServiceImplementation
+} from '@grpc/grpc-js';
+import { Duration } from '../google/protobuf/duration';
+import { Struct } from '../google/protobuf/struct';
 
-export const protobufPackage = "apiextensions.fn.proto.v1";
+export const protobufPackage = 'apiextensions.fn.proto.v1';
 
 /** Ready indicates whether a resource should be considered ready. */
 export enum Ready {
@@ -30,22 +30,22 @@ export enum Ready {
   READY_TRUE = 1,
   /** READY_FALSE - False means the resource has not been observed to be ready. */
   READY_FALSE = 2,
-  UNRECOGNIZED = -1,
+  UNRECOGNIZED = -1
 }
 
 export function readyFromJSON(object: any): Ready {
   switch (object) {
     case 0:
-    case "READY_UNSPECIFIED":
+    case 'READY_UNSPECIFIED':
       return Ready.READY_UNSPECIFIED;
     case 1:
-    case "READY_TRUE":
+    case 'READY_TRUE':
       return Ready.READY_TRUE;
     case 2:
-    case "READY_FALSE":
+    case 'READY_FALSE':
       return Ready.READY_FALSE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Ready.UNRECOGNIZED;
   }
@@ -54,14 +54,14 @@ export function readyFromJSON(object: any): Ready {
 export function readyToJSON(object: Ready): string {
   switch (object) {
     case Ready.READY_UNSPECIFIED:
-      return "READY_UNSPECIFIED";
+      return 'READY_UNSPECIFIED';
     case Ready.READY_TRUE:
-      return "READY_TRUE";
+      return 'READY_TRUE';
     case Ready.READY_FALSE:
-      return "READY_FALSE";
+      return 'READY_FALSE';
     case Ready.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -85,25 +85,25 @@ export enum Severity {
    * the XR or operation.
    */
   SEVERITY_NORMAL = 3,
-  UNRECOGNIZED = -1,
+  UNRECOGNIZED = -1
 }
 
 export function severityFromJSON(object: any): Severity {
   switch (object) {
     case 0:
-    case "SEVERITY_UNSPECIFIED":
+    case 'SEVERITY_UNSPECIFIED':
       return Severity.SEVERITY_UNSPECIFIED;
     case 1:
-    case "SEVERITY_FATAL":
+    case 'SEVERITY_FATAL':
       return Severity.SEVERITY_FATAL;
     case 2:
-    case "SEVERITY_WARNING":
+    case 'SEVERITY_WARNING':
       return Severity.SEVERITY_WARNING;
     case 3:
-    case "SEVERITY_NORMAL":
+    case 'SEVERITY_NORMAL':
       return Severity.SEVERITY_NORMAL;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Severity.UNRECOGNIZED;
   }
@@ -112,16 +112,16 @@ export function severityFromJSON(object: any): Severity {
 export function severityToJSON(object: Severity): string {
   switch (object) {
     case Severity.SEVERITY_UNSPECIFIED:
-      return "SEVERITY_UNSPECIFIED";
+      return 'SEVERITY_UNSPECIFIED';
     case Severity.SEVERITY_FATAL:
-      return "SEVERITY_FATAL";
+      return 'SEVERITY_FATAL';
     case Severity.SEVERITY_WARNING:
-      return "SEVERITY_WARNING";
+      return 'SEVERITY_WARNING';
     case Severity.SEVERITY_NORMAL:
-      return "SEVERITY_NORMAL";
+      return 'SEVERITY_NORMAL';
     case Severity.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -139,22 +139,22 @@ export enum Target {
    * should include only end-user friendly information.
    */
   TARGET_COMPOSITE_AND_CLAIM = 2,
-  UNRECOGNIZED = -1,
+  UNRECOGNIZED = -1
 }
 
 export function targetFromJSON(object: any): Target {
   switch (object) {
     case 0:
-    case "TARGET_UNSPECIFIED":
+    case 'TARGET_UNSPECIFIED':
       return Target.TARGET_UNSPECIFIED;
     case 1:
-    case "TARGET_COMPOSITE":
+    case 'TARGET_COMPOSITE':
       return Target.TARGET_COMPOSITE;
     case 2:
-    case "TARGET_COMPOSITE_AND_CLAIM":
+    case 'TARGET_COMPOSITE_AND_CLAIM':
       return Target.TARGET_COMPOSITE_AND_CLAIM;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Target.UNRECOGNIZED;
   }
@@ -163,14 +163,14 @@ export function targetFromJSON(object: any): Target {
 export function targetToJSON(object: Target): string {
   switch (object) {
     case Target.TARGET_UNSPECIFIED:
-      return "TARGET_UNSPECIFIED";
+      return 'TARGET_UNSPECIFIED';
     case Target.TARGET_COMPOSITE:
-      return "TARGET_COMPOSITE";
+      return 'TARGET_COMPOSITE';
     case Target.TARGET_COMPOSITE_AND_CLAIM:
-      return "TARGET_COMPOSITE_AND_CLAIM";
+      return 'TARGET_COMPOSITE_AND_CLAIM';
     case Target.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
@@ -179,25 +179,25 @@ export enum Status {
   STATUS_CONDITION_UNKNOWN = 1,
   STATUS_CONDITION_TRUE = 2,
   STATUS_CONDITION_FALSE = 3,
-  UNRECOGNIZED = -1,
+  UNRECOGNIZED = -1
 }
 
 export function statusFromJSON(object: any): Status {
   switch (object) {
     case 0:
-    case "STATUS_CONDITION_UNSPECIFIED":
+    case 'STATUS_CONDITION_UNSPECIFIED':
       return Status.STATUS_CONDITION_UNSPECIFIED;
     case 1:
-    case "STATUS_CONDITION_UNKNOWN":
+    case 'STATUS_CONDITION_UNKNOWN':
       return Status.STATUS_CONDITION_UNKNOWN;
     case 2:
-    case "STATUS_CONDITION_TRUE":
+    case 'STATUS_CONDITION_TRUE':
       return Status.STATUS_CONDITION_TRUE;
     case 3:
-    case "STATUS_CONDITION_FALSE":
+    case 'STATUS_CONDITION_FALSE':
       return Status.STATUS_CONDITION_FALSE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Status.UNRECOGNIZED;
   }
@@ -206,33 +206,29 @@ export function statusFromJSON(object: any): Status {
 export function statusToJSON(object: Status): string {
   switch (object) {
     case Status.STATUS_CONDITION_UNSPECIFIED:
-      return "STATUS_CONDITION_UNSPECIFIED";
+      return 'STATUS_CONDITION_UNSPECIFIED';
     case Status.STATUS_CONDITION_UNKNOWN:
-      return "STATUS_CONDITION_UNKNOWN";
+      return 'STATUS_CONDITION_UNKNOWN';
     case Status.STATUS_CONDITION_TRUE:
-      return "STATUS_CONDITION_TRUE";
+      return 'STATUS_CONDITION_TRUE';
     case Status.STATUS_CONDITION_FALSE:
-      return "STATUS_CONDITION_FALSE";
+      return 'STATUS_CONDITION_FALSE';
     case Status.UNRECOGNIZED:
     default:
-      return "UNRECOGNIZED";
+      return 'UNRECOGNIZED';
   }
 }
 
 /** A RunFunctionRequest requests that the function be run. */
 export interface RunFunctionRequest {
   /** Metadata pertaining to this request. */
-  meta?:
-    | RequestMeta
-    | undefined;
+  meta?: RequestMeta | undefined;
   /**
    * The observed state prior to invocation of a function pipeline. State passed
    * to each function is fresh as of the time the pipeline was invoked, not as
    * of the time each function was invoked.
    */
-  observed?:
-    | State
-    | undefined;
+  observed?: State | undefined;
   /**
    * Desired state according to a function pipeline. The state passed to a
    * particular function may have been accumulated by previous functions in the
@@ -245,25 +241,19 @@ export interface RunFunctionRequest {
    * as desired before will result in them being deleted from the objects in the
    * cluster.
    */
-  desired?:
-    | State
-    | undefined;
+  desired?: State | undefined;
   /**
    * Optional input specific to this function invocation. A JSON representation
    * of the 'input' block of the relevant entry in a function pipeline.
    */
-  input?:
-    | { [key: string]: any }
-    | undefined;
+  input?: { [key: string]: any } | undefined;
   /**
    * Optional context. Crossplane may pass arbitrary contextual information to a
    * function. A function may also return context in its RunFunctionResponse,
    * and that context will be passed to subsequent functions. Crossplane
    * discards all context returned by the last function in the pipeline.
    */
-  context?:
-    | { [key: string]: any }
-    | undefined;
+  context?: { [key: string]: any } | undefined;
   /**
    * Optional resources that the function specified in its requirements. Note
    * that resources is a map to Resources, plural. The map key corresponds to
@@ -334,9 +324,7 @@ export interface Resources {
 /** A RunFunctionResponse contains the result of a function run. */
 export interface RunFunctionResponse {
   /** Metadata pertaining to this response. */
-  meta?:
-    | ResponseMeta
-    | undefined;
+  meta?: ResponseMeta | undefined;
   /**
    * Desired state according to a function pipeline. functions may add desired
    * state, and may mutate or delete any part of the desired state they are
@@ -350,22 +338,16 @@ export interface RunFunctionResponse {
    * as desired before will result in them being deleted from the objects in the
    * cluster.
    */
-  desired?:
-    | State
-    | undefined;
+  desired?: State | undefined;
   /** Results of the function run. Results are used for observability purposes. */
   results: Result[];
   /**
    * Optional context to be passed to the next function in the pipeline as part
    * of the RunFunctionRequest. Dropped on the last function in the pipeline.
    */
-  context?:
-    | { [key: string]: any }
-    | undefined;
+  context?: { [key: string]: any } | undefined;
   /** Requirements that must be satisfied for this function to run successfully. */
-  requirements?:
-    | Requirements
-    | undefined;
+  requirements?: Requirements | undefined;
   /**
    * Status conditions to be applied to the XR. Conditions may also optionally
    * be applied to the XR's associated claim.
@@ -425,13 +407,9 @@ export interface ResourceSelector {
   /** Kind of resources to select. */
   kind: string;
   /** Match the resource with this name. */
-  matchName?:
-    | string
-    | undefined;
+  matchName?: string | undefined;
   /** Match all resources with these labels. */
-  matchLabels?:
-    | MatchLabels
-    | undefined;
+  matchLabels?: MatchLabels | undefined;
   /**
    * Match resources in this namespace. Omit namespace to match cluster scoped
    * resources, or to match namespaced resources by labels across all
@@ -468,9 +446,7 @@ export interface ResponseMeta {
 /** State of the XR (XR) and any resources. */
 export interface State {
   /** The state of the XR (XR). */
-  composite?:
-    | Resource
-    | undefined;
+  composite?: Resource | undefined;
   /**
    * The state of any other resources. In composition functions these are the
    * composed resources. In operation functions they're arbitrary resources that
@@ -503,9 +479,7 @@ export interface Resource {
    * e.g. composed resources. It may only specify their metadata and spec.
    * Status will be ignored.
    */
-  resource?:
-    | { [key: string]: any }
-    | undefined;
+  resource?: { [key: string]: any } | undefined;
   /**
    * The resource's connection details.
    *
@@ -556,9 +530,7 @@ export interface Result {
    * Optional PascalCase, machine-readable reason for this result. If omitted,
    * the value will be ComposeResources.
    */
-  reason?:
-    | string
-    | undefined;
+  reason?: string | undefined;
   /** The resources this result targets. */
   target?: Target | undefined;
 }
@@ -586,9 +558,7 @@ export interface Condition {
    * Message is a human readable message indicating details about the
    * transition. This may be an empty string.
    */
-  message?:
-    | string
-    | undefined;
+  message?: string | undefined;
   /** The resources this condition targets. */
   target?: Target | undefined;
 }
@@ -602,7 +572,7 @@ function createBaseRunFunctionRequest(): RunFunctionRequest {
     context: undefined,
     extraResources: {},
     credentials: {},
-    requiredResources: {},
+    requiredResources: {}
   };
 }
 
@@ -732,48 +702,36 @@ export const RunFunctionRequest: MessageFns<RunFunctionRequest> = {
       input: isObject(object.input) ? object.input : undefined,
       context: isObject(object.context) ? object.context : undefined,
       extraResources: isObject(object.extraResources)
-        ? (globalThis.Object.entries(object.extraResources) as [string, any][]).reduce(
-          (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.extraResources) as [string, any][]).reduce((acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
             acc[key] = Resources.fromJSON(value);
             return acc;
-          },
-          {},
-        )
+          }, {})
         : isObject(object.extra_resources)
-        ? (globalThis.Object.entries(object.extra_resources) as [string, any][]).reduce(
-          (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
-            acc[key] = Resources.fromJSON(value);
-            return acc;
-          },
-          {},
-        )
-        : {},
+          ? (globalThis.Object.entries(object.extra_resources) as [string, any][]).reduce((acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+              acc[key] = Resources.fromJSON(value);
+              return acc;
+            }, {})
+          : {},
       credentials: isObject(object.credentials)
-        ? (globalThis.Object.entries(object.credentials) as [string, any][]).reduce(
-          (acc: { [key: string]: Credentials }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.credentials) as [string, any][]).reduce((acc: { [key: string]: Credentials }, [key, value]: [string, any]) => {
             acc[key] = Credentials.fromJSON(value);
             return acc;
-          },
-          {},
-        )
+          }, {})
         : {},
       requiredResources: isObject(object.requiredResources)
-        ? (globalThis.Object.entries(object.requiredResources) as [string, any][]).reduce(
-          (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.requiredResources) as [string, any][]).reduce((acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
             acc[key] = Resources.fromJSON(value);
             return acc;
-          },
-          {},
-        )
+          }, {})
         : isObject(object.required_resources)
-        ? (globalThis.Object.entries(object.required_resources) as [string, any][]).reduce(
-          (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
-            acc[key] = Resources.fromJSON(value);
-            return acc;
-          },
-          {},
-        )
-        : {},
+          ? (globalThis.Object.entries(object.required_resources) as [string, any][]).reduce(
+              (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+                acc[key] = Resources.fromJSON(value);
+                return acc;
+              },
+              {}
+            )
+          : {}
     };
   },
 
@@ -829,15 +787,9 @@ export const RunFunctionRequest: MessageFns<RunFunctionRequest> = {
   },
   fromPartial(object: DeepPartial<RunFunctionRequest>): RunFunctionRequest {
     const message = createBaseRunFunctionRequest();
-    message.meta = (object.meta !== undefined && object.meta !== null)
-      ? RequestMeta.fromPartial(object.meta)
-      : undefined;
-    message.observed = (object.observed !== undefined && object.observed !== null)
-      ? State.fromPartial(object.observed)
-      : undefined;
-    message.desired = (object.desired !== undefined && object.desired !== null)
-      ? State.fromPartial(object.desired)
-      : undefined;
+    message.meta = object.meta !== undefined && object.meta !== null ? RequestMeta.fromPartial(object.meta) : undefined;
+    message.observed = object.observed !== undefined && object.observed !== null ? State.fromPartial(object.observed) : undefined;
+    message.desired = object.desired !== undefined && object.desired !== null ? State.fromPartial(object.desired) : undefined;
     message.input = object.input ?? undefined;
     message.context = object.context ?? undefined;
     message.extraResources = (globalThis.Object.entries(object.extraResources ?? {}) as [string, Resources][]).reduce(
@@ -847,7 +799,7 @@ export const RunFunctionRequest: MessageFns<RunFunctionRequest> = {
         }
         return acc;
       },
-      {},
+      {}
     );
     message.credentials = (globalThis.Object.entries(object.credentials ?? {}) as [string, Credentials][]).reduce(
       (acc: { [key: string]: Credentials }, [key, value]: [string, Credentials]) => {
@@ -856,26 +808,28 @@ export const RunFunctionRequest: MessageFns<RunFunctionRequest> = {
         }
         return acc;
       },
-      {},
+      {}
     );
-    message.requiredResources = (globalThis.Object.entries(object.requiredResources ?? {}) as [string, Resources][])
-      .reduce((acc: { [key: string]: Resources }, [key, value]: [string, Resources]) => {
+    message.requiredResources = (globalThis.Object.entries(object.requiredResources ?? {}) as [string, Resources][]).reduce(
+      (acc: { [key: string]: Resources }, [key, value]: [string, Resources]) => {
         if (value !== undefined) {
           acc[key] = Resources.fromPartial(value);
         }
         return acc;
-      }, {});
+      },
+      {}
+    );
     return message;
-  },
+  }
 };
 
 function createBaseRunFunctionRequest_ExtraResourcesEntry(): RunFunctionRequest_ExtraResourcesEntry {
-  return { key: "", value: undefined };
+  return { key: '', value: undefined };
 }
 
 export const RunFunctionRequest_ExtraResourcesEntry: MessageFns<RunFunctionRequest_ExtraResourcesEntry> = {
   encode(message: RunFunctionRequest_ExtraResourcesEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -918,14 +872,14 @@ export const RunFunctionRequest_ExtraResourcesEntry: MessageFns<RunFunctionReque
 
   fromJSON(object: any): RunFunctionRequest_ExtraResourcesEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? Resources.fromJSON(object.value) : undefined,
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? Resources.fromJSON(object.value) : undefined
     };
   },
 
   toJSON(message: RunFunctionRequest_ExtraResourcesEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value !== undefined) {
@@ -939,21 +893,19 @@ export const RunFunctionRequest_ExtraResourcesEntry: MessageFns<RunFunctionReque
   },
   fromPartial(object: DeepPartial<RunFunctionRequest_ExtraResourcesEntry>): RunFunctionRequest_ExtraResourcesEntry {
     const message = createBaseRunFunctionRequest_ExtraResourcesEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null)
-      ? Resources.fromPartial(object.value)
-      : undefined;
+    message.key = object.key ?? '';
+    message.value = object.value !== undefined && object.value !== null ? Resources.fromPartial(object.value) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseRunFunctionRequest_CredentialsEntry(): RunFunctionRequest_CredentialsEntry {
-  return { key: "", value: undefined };
+  return { key: '', value: undefined };
 }
 
 export const RunFunctionRequest_CredentialsEntry: MessageFns<RunFunctionRequest_CredentialsEntry> = {
   encode(message: RunFunctionRequest_CredentialsEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -996,14 +948,14 @@ export const RunFunctionRequest_CredentialsEntry: MessageFns<RunFunctionRequest_
 
   fromJSON(object: any): RunFunctionRequest_CredentialsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? Credentials.fromJSON(object.value) : undefined,
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? Credentials.fromJSON(object.value) : undefined
     };
   },
 
   toJSON(message: RunFunctionRequest_CredentialsEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value !== undefined) {
@@ -1017,21 +969,19 @@ export const RunFunctionRequest_CredentialsEntry: MessageFns<RunFunctionRequest_
   },
   fromPartial(object: DeepPartial<RunFunctionRequest_CredentialsEntry>): RunFunctionRequest_CredentialsEntry {
     const message = createBaseRunFunctionRequest_CredentialsEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null)
-      ? Credentials.fromPartial(object.value)
-      : undefined;
+    message.key = object.key ?? '';
+    message.value = object.value !== undefined && object.value !== null ? Credentials.fromPartial(object.value) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseRunFunctionRequest_RequiredResourcesEntry(): RunFunctionRequest_RequiredResourcesEntry {
-  return { key: "", value: undefined };
+  return { key: '', value: undefined };
 }
 
 export const RunFunctionRequest_RequiredResourcesEntry: MessageFns<RunFunctionRequest_RequiredResourcesEntry> = {
   encode(message: RunFunctionRequest_RequiredResourcesEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -1074,14 +1024,14 @@ export const RunFunctionRequest_RequiredResourcesEntry: MessageFns<RunFunctionRe
 
   fromJSON(object: any): RunFunctionRequest_RequiredResourcesEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? Resources.fromJSON(object.value) : undefined,
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? Resources.fromJSON(object.value) : undefined
     };
   },
 
   toJSON(message: RunFunctionRequest_RequiredResourcesEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value !== undefined) {
@@ -1093,16 +1043,12 @@ export const RunFunctionRequest_RequiredResourcesEntry: MessageFns<RunFunctionRe
   create(base?: DeepPartial<RunFunctionRequest_RequiredResourcesEntry>): RunFunctionRequest_RequiredResourcesEntry {
     return RunFunctionRequest_RequiredResourcesEntry.fromPartial(base ?? {});
   },
-  fromPartial(
-    object: DeepPartial<RunFunctionRequest_RequiredResourcesEntry>,
-  ): RunFunctionRequest_RequiredResourcesEntry {
+  fromPartial(object: DeepPartial<RunFunctionRequest_RequiredResourcesEntry>): RunFunctionRequest_RequiredResourcesEntry {
     const message = createBaseRunFunctionRequest_RequiredResourcesEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null)
-      ? Resources.fromPartial(object.value)
-      : undefined;
+    message.key = object.key ?? '';
+    message.value = object.value !== undefined && object.value !== null ? Resources.fromPartial(object.value) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseCredentials(): Credentials {
@@ -1146,8 +1092,8 @@ export const Credentials: MessageFns<Credentials> = {
       credentialData: isSet(object.credentialData)
         ? CredentialData.fromJSON(object.credentialData)
         : isSet(object.credential_data)
-        ? CredentialData.fromJSON(object.credential_data)
-        : undefined,
+          ? CredentialData.fromJSON(object.credential_data)
+          : undefined
     };
   },
 
@@ -1164,11 +1110,10 @@ export const Credentials: MessageFns<Credentials> = {
   },
   fromPartial(object: DeepPartial<Credentials>): Credentials {
     const message = createBaseCredentials();
-    message.credentialData = (object.credentialData !== undefined && object.credentialData !== null)
-      ? CredentialData.fromPartial(object.credentialData)
-      : undefined;
+    message.credentialData =
+      object.credentialData !== undefined && object.credentialData !== null ? CredentialData.fromPartial(object.credentialData) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseCredentialData(): CredentialData {
@@ -1213,14 +1158,11 @@ export const CredentialData: MessageFns<CredentialData> = {
   fromJSON(object: any): CredentialData {
     return {
       data: isObject(object.data)
-        ? (globalThis.Object.entries(object.data) as [string, any][]).reduce(
-          (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.data) as [string, any][]).reduce((acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
             acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
-          },
-          {},
-        )
-        : {},
+          }, {})
+        : {}
     };
   },
 
@@ -1250,19 +1192,19 @@ export const CredentialData: MessageFns<CredentialData> = {
         }
         return acc;
       },
-      {},
+      {}
     );
     return message;
-  },
+  }
 };
 
 function createBaseCredentialData_DataEntry(): CredentialData_DataEntry {
-  return { key: "", value: Buffer.alloc(0) };
+  return { key: '', value: Buffer.alloc(0) };
 }
 
 export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
   encode(message: CredentialData_DataEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value.length !== 0) {
@@ -1305,14 +1247,14 @@ export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
 
   fromJSON(object: any): CredentialData_DataEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0)
     };
   },
 
   toJSON(message: CredentialData_DataEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value.length !== 0) {
@@ -1326,10 +1268,10 @@ export const CredentialData_DataEntry: MessageFns<CredentialData_DataEntry> = {
   },
   fromPartial(object: DeepPartial<CredentialData_DataEntry>): CredentialData_DataEntry {
     const message = createBaseCredentialData_DataEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? '';
     message.value = object.value ?? Buffer.alloc(0);
     return message;
-  },
+  }
 };
 
 function createBaseResources(): Resources {
@@ -1387,7 +1329,7 @@ export const Resources: MessageFns<Resources> = {
     const message = createBaseResources();
     message.items = object.items?.map((e) => Resource.fromPartial(e)) || [];
     return message;
-  },
+  }
 };
 
 function createBaseRunFunctionResponse(): RunFunctionResponse {
@@ -1398,7 +1340,7 @@ function createBaseRunFunctionResponse(): RunFunctionResponse {
     context: undefined,
     requirements: undefined,
     conditions: [],
-    output: undefined,
+    output: undefined
   };
 }
 
@@ -1507,10 +1449,8 @@ export const RunFunctionResponse: MessageFns<RunFunctionResponse> = {
       results: globalThis.Array.isArray(object?.results) ? object.results.map((e: any) => Result.fromJSON(e)) : [],
       context: isObject(object.context) ? object.context : undefined,
       requirements: isSet(object.requirements) ? Requirements.fromJSON(object.requirements) : undefined,
-      conditions: globalThis.Array.isArray(object?.conditions)
-        ? object.conditions.map((e: any) => Condition.fromJSON(e))
-        : [],
-      output: isObject(object.output) ? object.output : undefined,
+      conditions: globalThis.Array.isArray(object?.conditions) ? object.conditions.map((e: any) => Condition.fromJSON(e)) : [],
+      output: isObject(object.output) ? object.output : undefined
     };
   },
 
@@ -1545,30 +1485,24 @@ export const RunFunctionResponse: MessageFns<RunFunctionResponse> = {
   },
   fromPartial(object: DeepPartial<RunFunctionResponse>): RunFunctionResponse {
     const message = createBaseRunFunctionResponse();
-    message.meta = (object.meta !== undefined && object.meta !== null)
-      ? ResponseMeta.fromPartial(object.meta)
-      : undefined;
-    message.desired = (object.desired !== undefined && object.desired !== null)
-      ? State.fromPartial(object.desired)
-      : undefined;
+    message.meta = object.meta !== undefined && object.meta !== null ? ResponseMeta.fromPartial(object.meta) : undefined;
+    message.desired = object.desired !== undefined && object.desired !== null ? State.fromPartial(object.desired) : undefined;
     message.results = object.results?.map((e) => Result.fromPartial(e)) || [];
     message.context = object.context ?? undefined;
-    message.requirements = (object.requirements !== undefined && object.requirements !== null)
-      ? Requirements.fromPartial(object.requirements)
-      : undefined;
+    message.requirements = object.requirements !== undefined && object.requirements !== null ? Requirements.fromPartial(object.requirements) : undefined;
     message.conditions = object.conditions?.map((e) => Condition.fromPartial(e)) || [];
     message.output = object.output ?? undefined;
     return message;
-  },
+  }
 };
 
 function createBaseRequestMeta(): RequestMeta {
-  return { tag: "" };
+  return { tag: '' };
 }
 
 export const RequestMeta: MessageFns<RequestMeta> = {
   encode(message: RequestMeta, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.tag !== "") {
+    if (message.tag !== '') {
       writer.uint32(10).string(message.tag);
     }
     return writer;
@@ -1599,12 +1533,12 @@ export const RequestMeta: MessageFns<RequestMeta> = {
   },
 
   fromJSON(object: any): RequestMeta {
-    return { tag: isSet(object.tag) ? globalThis.String(object.tag) : "" };
+    return { tag: isSet(object.tag) ? globalThis.String(object.tag) : '' };
   },
 
   toJSON(message: RequestMeta): unknown {
     const obj: any = {};
-    if (message.tag !== "") {
+    if (message.tag !== '') {
       obj.tag = message.tag;
     }
     return obj;
@@ -1615,9 +1549,9 @@ export const RequestMeta: MessageFns<RequestMeta> = {
   },
   fromPartial(object: DeepPartial<RequestMeta>): RequestMeta {
     const message = createBaseRequestMeta();
-    message.tag = object.tag ?? "";
+    message.tag = object.tag ?? '';
     return message;
-  },
+  }
 };
 
 function createBaseRequirements(): Requirements {
@@ -1677,30 +1611,27 @@ export const Requirements: MessageFns<Requirements> = {
     return {
       extraResources: isObject(object.extraResources)
         ? (globalThis.Object.entries(object.extraResources) as [string, any][]).reduce(
-          (acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
-            acc[key] = ResourceSelector.fromJSON(value);
-            return acc;
-          },
-          {},
-        )
+            (acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
+              acc[key] = ResourceSelector.fromJSON(value);
+              return acc;
+            },
+            {}
+          )
         : isObject(object.extra_resources)
-        ? (globalThis.Object.entries(object.extra_resources) as [string, any][]).reduce(
-          (acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
-            acc[key] = ResourceSelector.fromJSON(value);
-            return acc;
-          },
-          {},
-        )
-        : {},
+          ? (globalThis.Object.entries(object.extra_resources) as [string, any][]).reduce(
+              (acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
+                acc[key] = ResourceSelector.fromJSON(value);
+                return acc;
+              },
+              {}
+            )
+          : {},
       resources: isObject(object.resources)
-        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce(
-          (acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce((acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
             acc[key] = ResourceSelector.fromJSON(value);
             return acc;
-          },
-          {},
-        )
-        : {},
+          }, {})
+        : {}
     };
   },
 
@@ -1732,13 +1663,15 @@ export const Requirements: MessageFns<Requirements> = {
   },
   fromPartial(object: DeepPartial<Requirements>): Requirements {
     const message = createBaseRequirements();
-    message.extraResources = (globalThis.Object.entries(object.extraResources ?? {}) as [string, ResourceSelector][])
-      .reduce((acc: { [key: string]: ResourceSelector }, [key, value]: [string, ResourceSelector]) => {
+    message.extraResources = (globalThis.Object.entries(object.extraResources ?? {}) as [string, ResourceSelector][]).reduce(
+      (acc: { [key: string]: ResourceSelector }, [key, value]: [string, ResourceSelector]) => {
         if (value !== undefined) {
           acc[key] = ResourceSelector.fromPartial(value);
         }
         return acc;
-      }, {});
+      },
+      {}
+    );
     message.resources = (globalThis.Object.entries(object.resources ?? {}) as [string, ResourceSelector][]).reduce(
       (acc: { [key: string]: ResourceSelector }, [key, value]: [string, ResourceSelector]) => {
         if (value !== undefined) {
@@ -1746,19 +1679,19 @@ export const Requirements: MessageFns<Requirements> = {
         }
         return acc;
       },
-      {},
+      {}
     );
     return message;
-  },
+  }
 };
 
 function createBaseRequirements_ExtraResourcesEntry(): Requirements_ExtraResourcesEntry {
-  return { key: "", value: undefined };
+  return { key: '', value: undefined };
 }
 
 export const Requirements_ExtraResourcesEntry: MessageFns<Requirements_ExtraResourcesEntry> = {
   encode(message: Requirements_ExtraResourcesEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -1801,14 +1734,14 @@ export const Requirements_ExtraResourcesEntry: MessageFns<Requirements_ExtraReso
 
   fromJSON(object: any): Requirements_ExtraResourcesEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? ResourceSelector.fromJSON(object.value) : undefined,
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? ResourceSelector.fromJSON(object.value) : undefined
     };
   },
 
   toJSON(message: Requirements_ExtraResourcesEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value !== undefined) {
@@ -1822,21 +1755,19 @@ export const Requirements_ExtraResourcesEntry: MessageFns<Requirements_ExtraReso
   },
   fromPartial(object: DeepPartial<Requirements_ExtraResourcesEntry>): Requirements_ExtraResourcesEntry {
     const message = createBaseRequirements_ExtraResourcesEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null)
-      ? ResourceSelector.fromPartial(object.value)
-      : undefined;
+    message.key = object.key ?? '';
+    message.value = object.value !== undefined && object.value !== null ? ResourceSelector.fromPartial(object.value) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseRequirements_ResourcesEntry(): Requirements_ResourcesEntry {
-  return { key: "", value: undefined };
+  return { key: '', value: undefined };
 }
 
 export const Requirements_ResourcesEntry: MessageFns<Requirements_ResourcesEntry> = {
   encode(message: Requirements_ResourcesEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -1879,14 +1810,14 @@ export const Requirements_ResourcesEntry: MessageFns<Requirements_ResourcesEntry
 
   fromJSON(object: any): Requirements_ResourcesEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? ResourceSelector.fromJSON(object.value) : undefined,
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? ResourceSelector.fromJSON(object.value) : undefined
     };
   },
 
   toJSON(message: Requirements_ResourcesEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value !== undefined) {
@@ -1900,24 +1831,22 @@ export const Requirements_ResourcesEntry: MessageFns<Requirements_ResourcesEntry
   },
   fromPartial(object: DeepPartial<Requirements_ResourcesEntry>): Requirements_ResourcesEntry {
     const message = createBaseRequirements_ResourcesEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null)
-      ? ResourceSelector.fromPartial(object.value)
-      : undefined;
+    message.key = object.key ?? '';
+    message.value = object.value !== undefined && object.value !== null ? ResourceSelector.fromPartial(object.value) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseResourceSelector(): ResourceSelector {
-  return { apiVersion: "", kind: "", matchName: undefined, matchLabels: undefined, namespace: undefined };
+  return { apiVersion: '', kind: '', matchName: undefined, matchLabels: undefined, namespace: undefined };
 }
 
 export const ResourceSelector: MessageFns<ResourceSelector> = {
   encode(message: ResourceSelector, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.apiVersion !== "") {
+    if (message.apiVersion !== '') {
       writer.uint32(10).string(message.apiVersion);
     }
-    if (message.kind !== "") {
+    if (message.kind !== '') {
       writer.uint32(18).string(message.kind);
     }
     if (message.matchName !== undefined) {
@@ -1990,32 +1919,24 @@ export const ResourceSelector: MessageFns<ResourceSelector> = {
 
   fromJSON(object: any): ResourceSelector {
     return {
-      apiVersion: isSet(object.apiVersion)
-        ? globalThis.String(object.apiVersion)
-        : isSet(object.api_version)
-        ? globalThis.String(object.api_version)
-        : "",
-      kind: isSet(object.kind) ? globalThis.String(object.kind) : "",
-      matchName: isSet(object.matchName)
-        ? globalThis.String(object.matchName)
-        : isSet(object.match_name)
-        ? globalThis.String(object.match_name)
-        : undefined,
+      apiVersion: isSet(object.apiVersion) ? globalThis.String(object.apiVersion) : isSet(object.api_version) ? globalThis.String(object.api_version) : '',
+      kind: isSet(object.kind) ? globalThis.String(object.kind) : '',
+      matchName: isSet(object.matchName) ? globalThis.String(object.matchName) : isSet(object.match_name) ? globalThis.String(object.match_name) : undefined,
       matchLabels: isSet(object.matchLabels)
         ? MatchLabels.fromJSON(object.matchLabels)
         : isSet(object.match_labels)
-        ? MatchLabels.fromJSON(object.match_labels)
-        : undefined,
-      namespace: isSet(object.namespace) ? globalThis.String(object.namespace) : undefined,
+          ? MatchLabels.fromJSON(object.match_labels)
+          : undefined,
+      namespace: isSet(object.namespace) ? globalThis.String(object.namespace) : undefined
     };
   },
 
   toJSON(message: ResourceSelector): unknown {
     const obj: any = {};
-    if (message.apiVersion !== "") {
+    if (message.apiVersion !== '') {
       obj.apiVersion = message.apiVersion;
     }
-    if (message.kind !== "") {
+    if (message.kind !== '') {
       obj.kind = message.kind;
     }
     if (message.matchName !== undefined) {
@@ -2035,15 +1956,13 @@ export const ResourceSelector: MessageFns<ResourceSelector> = {
   },
   fromPartial(object: DeepPartial<ResourceSelector>): ResourceSelector {
     const message = createBaseResourceSelector();
-    message.apiVersion = object.apiVersion ?? "";
-    message.kind = object.kind ?? "";
+    message.apiVersion = object.apiVersion ?? '';
+    message.kind = object.kind ?? '';
     message.matchName = object.matchName ?? undefined;
-    message.matchLabels = (object.matchLabels !== undefined && object.matchLabels !== null)
-      ? MatchLabels.fromPartial(object.matchLabels)
-      : undefined;
+    message.matchLabels = object.matchLabels !== undefined && object.matchLabels !== null ? MatchLabels.fromPartial(object.matchLabels) : undefined;
     message.namespace = object.namespace ?? undefined;
     return message;
-  },
+  }
 };
 
 function createBaseMatchLabels(): MatchLabels {
@@ -2088,14 +2007,11 @@ export const MatchLabels: MessageFns<MatchLabels> = {
   fromJSON(object: any): MatchLabels {
     return {
       labels: isObject(object.labels)
-        ? (globalThis.Object.entries(object.labels) as [string, any][]).reduce(
-          (acc: { [key: string]: string }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.labels) as [string, any][]).reduce((acc: { [key: string]: string }, [key, value]: [string, any]) => {
             acc[key] = globalThis.String(value);
             return acc;
-          },
-          {},
-        )
-        : {},
+          }, {})
+        : {}
     };
   },
 
@@ -2125,22 +2041,22 @@ export const MatchLabels: MessageFns<MatchLabels> = {
         }
         return acc;
       },
-      {},
+      {}
     );
     return message;
-  },
+  }
 };
 
 function createBaseMatchLabels_LabelsEntry(): MatchLabels_LabelsEntry {
-  return { key: "", value: "" };
+  return { key: '', value: '' };
 }
 
 export const MatchLabels_LabelsEntry: MessageFns<MatchLabels_LabelsEntry> = {
   encode(message: MatchLabels_LabelsEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== "") {
+    if (message.value !== '') {
       writer.uint32(18).string(message.value);
     }
     return writer;
@@ -2180,17 +2096,17 @@ export const MatchLabels_LabelsEntry: MessageFns<MatchLabels_LabelsEntry> = {
 
   fromJSON(object: any): MatchLabels_LabelsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? globalThis.String(object.value) : "",
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? globalThis.String(object.value) : ''
     };
   },
 
   toJSON(message: MatchLabels_LabelsEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
-    if (message.value !== "") {
+    if (message.value !== '') {
       obj.value = message.value;
     }
     return obj;
@@ -2201,19 +2117,19 @@ export const MatchLabels_LabelsEntry: MessageFns<MatchLabels_LabelsEntry> = {
   },
   fromPartial(object: DeepPartial<MatchLabels_LabelsEntry>): MatchLabels_LabelsEntry {
     const message = createBaseMatchLabels_LabelsEntry();
-    message.key = object.key ?? "";
-    message.value = object.value ?? "";
+    message.key = object.key ?? '';
+    message.value = object.value ?? '';
     return message;
-  },
+  }
 };
 
 function createBaseResponseMeta(): ResponseMeta {
-  return { tag: "", ttl: undefined };
+  return { tag: '', ttl: undefined };
 }
 
 export const ResponseMeta: MessageFns<ResponseMeta> = {
   encode(message: ResponseMeta, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.tag !== "") {
+    if (message.tag !== '') {
       writer.uint32(10).string(message.tag);
     }
     if (message.ttl !== undefined) {
@@ -2256,14 +2172,14 @@ export const ResponseMeta: MessageFns<ResponseMeta> = {
 
   fromJSON(object: any): ResponseMeta {
     return {
-      tag: isSet(object.tag) ? globalThis.String(object.tag) : "",
-      ttl: isSet(object.ttl) ? Duration.fromJSON(object.ttl) : undefined,
+      tag: isSet(object.tag) ? globalThis.String(object.tag) : '',
+      ttl: isSet(object.ttl) ? Duration.fromJSON(object.ttl) : undefined
     };
   },
 
   toJSON(message: ResponseMeta): unknown {
     const obj: any = {};
-    if (message.tag !== "") {
+    if (message.tag !== '') {
       obj.tag = message.tag;
     }
     if (message.ttl !== undefined) {
@@ -2277,10 +2193,10 @@ export const ResponseMeta: MessageFns<ResponseMeta> = {
   },
   fromPartial(object: DeepPartial<ResponseMeta>): ResponseMeta {
     const message = createBaseResponseMeta();
-    message.tag = object.tag ?? "";
-    message.ttl = (object.ttl !== undefined && object.ttl !== null) ? Duration.fromPartial(object.ttl) : undefined;
+    message.tag = object.tag ?? '';
+    message.ttl = object.ttl !== undefined && object.ttl !== null ? Duration.fromPartial(object.ttl) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseState(): State {
@@ -2337,14 +2253,11 @@ export const State: MessageFns<State> = {
     return {
       composite: isSet(object.composite) ? Resource.fromJSON(object.composite) : undefined,
       resources: isObject(object.resources)
-        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce(
-          (acc: { [key: string]: Resource }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce((acc: { [key: string]: Resource }, [key, value]: [string, any]) => {
             acc[key] = Resource.fromJSON(value);
             return acc;
-          },
-          {},
-        )
-        : {},
+          }, {})
+        : {}
     };
   },
 
@@ -2370,9 +2283,7 @@ export const State: MessageFns<State> = {
   },
   fromPartial(object: DeepPartial<State>): State {
     const message = createBaseState();
-    message.composite = (object.composite !== undefined && object.composite !== null)
-      ? Resource.fromPartial(object.composite)
-      : undefined;
+    message.composite = object.composite !== undefined && object.composite !== null ? Resource.fromPartial(object.composite) : undefined;
     message.resources = (globalThis.Object.entries(object.resources ?? {}) as [string, Resource][]).reduce(
       (acc: { [key: string]: Resource }, [key, value]: [string, Resource]) => {
         if (value !== undefined) {
@@ -2380,19 +2291,19 @@ export const State: MessageFns<State> = {
         }
         return acc;
       },
-      {},
+      {}
     );
     return message;
-  },
+  }
 };
 
 function createBaseState_ResourcesEntry(): State_ResourcesEntry {
-  return { key: "", value: undefined };
+  return { key: '', value: undefined };
 }
 
 export const State_ResourcesEntry: MessageFns<State_ResourcesEntry> = {
   encode(message: State_ResourcesEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -2435,14 +2346,14 @@ export const State_ResourcesEntry: MessageFns<State_ResourcesEntry> = {
 
   fromJSON(object: any): State_ResourcesEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? Resource.fromJSON(object.value) : undefined,
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? Resource.fromJSON(object.value) : undefined
     };
   },
 
   toJSON(message: State_ResourcesEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value !== undefined) {
@@ -2456,12 +2367,10 @@ export const State_ResourcesEntry: MessageFns<State_ResourcesEntry> = {
   },
   fromPartial(object: DeepPartial<State_ResourcesEntry>): State_ResourcesEntry {
     const message = createBaseState_ResourcesEntry();
-    message.key = object.key ?? "";
-    message.value = (object.value !== undefined && object.value !== null)
-      ? Resource.fromPartial(object.value)
-      : undefined;
+    message.key = object.key ?? '';
+    message.value = object.value !== undefined && object.value !== null ? Resource.fromPartial(object.value) : undefined;
     return message;
-  },
+  }
 };
 
 function createBaseResource(): Resource {
@@ -2529,23 +2438,17 @@ export const Resource: MessageFns<Resource> = {
     return {
       resource: isObject(object.resource) ? object.resource : undefined,
       connectionDetails: isObject(object.connectionDetails)
-        ? (globalThis.Object.entries(object.connectionDetails) as [string, any][]).reduce(
-          (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.connectionDetails) as [string, any][]).reduce((acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
             acc[key] = Buffer.from(bytesFromBase64(value as string));
             return acc;
-          },
-          {},
-        )
+          }, {})
         : isObject(object.connection_details)
-        ? (globalThis.Object.entries(object.connection_details) as [string, any][]).reduce(
-          (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
-            acc[key] = Buffer.from(bytesFromBase64(value as string));
-            return acc;
-          },
-          {},
-        )
-        : {},
-      ready: isSet(object.ready) ? readyFromJSON(object.ready) : 0,
+          ? (globalThis.Object.entries(object.connection_details) as [string, any][]).reduce((acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+              acc[key] = Buffer.from(bytesFromBase64(value as string));
+              return acc;
+            }, {})
+          : {},
+      ready: isSet(object.ready) ? readyFromJSON(object.ready) : 0
     };
   },
 
@@ -2575,25 +2478,27 @@ export const Resource: MessageFns<Resource> = {
   fromPartial(object: DeepPartial<Resource>): Resource {
     const message = createBaseResource();
     message.resource = object.resource ?? undefined;
-    message.connectionDetails = (globalThis.Object.entries(object.connectionDetails ?? {}) as [string, Buffer][])
-      .reduce((acc: { [key: string]: Buffer }, [key, value]: [string, Buffer]) => {
+    message.connectionDetails = (globalThis.Object.entries(object.connectionDetails ?? {}) as [string, Buffer][]).reduce(
+      (acc: { [key: string]: Buffer }, [key, value]: [string, Buffer]) => {
         if (value !== undefined) {
           acc[key] = value;
         }
         return acc;
-      }, {});
+      },
+      {}
+    );
     message.ready = object.ready ?? 0;
     return message;
-  },
+  }
 };
 
 function createBaseResource_ConnectionDetailsEntry(): Resource_ConnectionDetailsEntry {
-  return { key: "", value: Buffer.alloc(0) };
+  return { key: '', value: Buffer.alloc(0) };
 }
 
 export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDetailsEntry> = {
   encode(message: Resource_ConnectionDetailsEntry, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
     if (message.value.length !== 0) {
@@ -2636,14 +2541,14 @@ export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDeta
 
   fromJSON(object: any): Resource_ConnectionDetailsEntry {
     return {
-      key: isSet(object.key) ? globalThis.String(object.key) : "",
-      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0),
+      key: isSet(object.key) ? globalThis.String(object.key) : '',
+      value: isSet(object.value) ? Buffer.from(bytesFromBase64(object.value)) : Buffer.alloc(0)
     };
   },
 
   toJSON(message: Resource_ConnectionDetailsEntry): unknown {
     const obj: any = {};
-    if (message.key !== "") {
+    if (message.key !== '') {
       obj.key = message.key;
     }
     if (message.value.length !== 0) {
@@ -2657,14 +2562,14 @@ export const Resource_ConnectionDetailsEntry: MessageFns<Resource_ConnectionDeta
   },
   fromPartial(object: DeepPartial<Resource_ConnectionDetailsEntry>): Resource_ConnectionDetailsEntry {
     const message = createBaseResource_ConnectionDetailsEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? '';
     message.value = object.value ?? Buffer.alloc(0);
     return message;
-  },
+  }
 };
 
 function createBaseResult(): Result {
-  return { severity: 0, message: "", reason: undefined, target: undefined };
+  return { severity: 0, message: '', reason: undefined, target: undefined };
 }
 
 export const Result: MessageFns<Result> = {
@@ -2672,7 +2577,7 @@ export const Result: MessageFns<Result> = {
     if (message.severity !== 0) {
       writer.uint32(8).int32(message.severity);
     }
-    if (message.message !== "") {
+    if (message.message !== '') {
       writer.uint32(18).string(message.message);
     }
     if (message.reason !== undefined) {
@@ -2735,9 +2640,9 @@ export const Result: MessageFns<Result> = {
   fromJSON(object: any): Result {
     return {
       severity: isSet(object.severity) ? severityFromJSON(object.severity) : 0,
-      message: isSet(object.message) ? globalThis.String(object.message) : "",
+      message: isSet(object.message) ? globalThis.String(object.message) : '',
       reason: isSet(object.reason) ? globalThis.String(object.reason) : undefined,
-      target: isSet(object.target) ? targetFromJSON(object.target) : undefined,
+      target: isSet(object.target) ? targetFromJSON(object.target) : undefined
     };
   },
 
@@ -2746,7 +2651,7 @@ export const Result: MessageFns<Result> = {
     if (message.severity !== 0) {
       obj.severity = severityToJSON(message.severity);
     }
-    if (message.message !== "") {
+    if (message.message !== '') {
       obj.message = message.message;
     }
     if (message.reason !== undefined) {
@@ -2764,26 +2669,26 @@ export const Result: MessageFns<Result> = {
   fromPartial(object: DeepPartial<Result>): Result {
     const message = createBaseResult();
     message.severity = object.severity ?? 0;
-    message.message = object.message ?? "";
+    message.message = object.message ?? '';
     message.reason = object.reason ?? undefined;
     message.target = object.target ?? undefined;
     return message;
-  },
+  }
 };
 
 function createBaseCondition(): Condition {
-  return { type: "", status: 0, reason: "", message: undefined, target: undefined };
+  return { type: '', status: 0, reason: '', message: undefined, target: undefined };
 }
 
 export const Condition: MessageFns<Condition> = {
   encode(message: Condition, writer: BinaryWriter = new BinaryWriter()): BinaryWriter {
-    if (message.type !== "") {
+    if (message.type !== '') {
       writer.uint32(10).string(message.type);
     }
     if (message.status !== 0) {
       writer.uint32(16).int32(message.status);
     }
-    if (message.reason !== "") {
+    if (message.reason !== '') {
       writer.uint32(26).string(message.reason);
     }
     if (message.message !== undefined) {
@@ -2853,23 +2758,23 @@ export const Condition: MessageFns<Condition> = {
 
   fromJSON(object: any): Condition {
     return {
-      type: isSet(object.type) ? globalThis.String(object.type) : "",
+      type: isSet(object.type) ? globalThis.String(object.type) : '',
       status: isSet(object.status) ? statusFromJSON(object.status) : 0,
-      reason: isSet(object.reason) ? globalThis.String(object.reason) : "",
+      reason: isSet(object.reason) ? globalThis.String(object.reason) : '',
       message: isSet(object.message) ? globalThis.String(object.message) : undefined,
-      target: isSet(object.target) ? targetFromJSON(object.target) : undefined,
+      target: isSet(object.target) ? targetFromJSON(object.target) : undefined
     };
   },
 
   toJSON(message: Condition): unknown {
     const obj: any = {};
-    if (message.type !== "") {
+    if (message.type !== '') {
       obj.type = message.type;
     }
     if (message.status !== 0) {
       obj.status = statusToJSON(message.status);
     }
-    if (message.reason !== "") {
+    if (message.reason !== '') {
       obj.reason = message.reason;
     }
     if (message.message !== undefined) {
@@ -2886,13 +2791,13 @@ export const Condition: MessageFns<Condition> = {
   },
   fromPartial(object: DeepPartial<Condition>): Condition {
     const message = createBaseCondition();
-    message.type = object.type ?? "";
+    message.type = object.type ?? '';
     message.status = object.status ?? 0;
-    message.reason = object.reason ?? "";
+    message.reason = object.reason ?? '';
     message.message = object.message ?? undefined;
     message.target = object.target ?? undefined;
     return message;
-  },
+  }
 };
 
 /** A FunctionRunnerService is a function. */
@@ -2900,14 +2805,14 @@ export type FunctionRunnerServiceService = typeof FunctionRunnerServiceService;
 export const FunctionRunnerServiceService = {
   /** RunFunction runs the function. */
   runFunction: {
-    path: "/apiextensions.fn.proto.v1.FunctionRunnerService/RunFunction",
+    path: '/apiextensions.fn.proto.v1.FunctionRunnerService/RunFunction',
     requestStream: false,
     responseStream: false,
     requestSerialize: (value: RunFunctionRequest): Buffer => Buffer.from(RunFunctionRequest.encode(value).finish()),
     requestDeserialize: (value: Buffer): RunFunctionRequest => RunFunctionRequest.decode(value),
     responseSerialize: (value: RunFunctionResponse): Buffer => Buffer.from(RunFunctionResponse.encode(value).finish()),
-    responseDeserialize: (value: Buffer): RunFunctionResponse => RunFunctionResponse.decode(value),
-  },
+    responseDeserialize: (value: Buffer): RunFunctionResponse => RunFunctionResponse.decode(value)
+  }
 } as const;
 
 export interface FunctionRunnerServiceServer extends UntypedServiceImplementation {
@@ -2917,26 +2822,19 @@ export interface FunctionRunnerServiceServer extends UntypedServiceImplementatio
 
 export interface FunctionRunnerServiceClient extends Client {
   /** RunFunction runs the function. */
-  runFunction(
-    request: RunFunctionRequest,
-    callback: (error: ServiceError | null, response: RunFunctionResponse) => void,
-  ): ClientUnaryCall;
-  runFunction(
-    request: RunFunctionRequest,
-    metadata: Metadata,
-    callback: (error: ServiceError | null, response: RunFunctionResponse) => void,
-  ): ClientUnaryCall;
+  runFunction(request: RunFunctionRequest, callback: (error: ServiceError | null, response: RunFunctionResponse) => void): ClientUnaryCall;
+  runFunction(request: RunFunctionRequest, metadata: Metadata, callback: (error: ServiceError | null, response: RunFunctionResponse) => void): ClientUnaryCall;
   runFunction(
     request: RunFunctionRequest,
     metadata: Metadata,
     options: Partial<CallOptions>,
-    callback: (error: ServiceError | null, response: RunFunctionResponse) => void,
+    callback: (error: ServiceError | null, response: RunFunctionResponse) => void
   ): ClientUnaryCall;
 }
 
 export const FunctionRunnerServiceClient = makeGenericClientConstructor(
   FunctionRunnerServiceService,
-  "apiextensions.fn.proto.v1.FunctionRunnerService",
+  'apiextensions.fn.proto.v1.FunctionRunnerService'
 ) as unknown as {
   new (address: string, credentials: ChannelCredentials, options?: Partial<ClientOptions>): FunctionRunnerServiceClient;
   service: typeof FunctionRunnerServiceService;
@@ -2944,23 +2842,27 @@ export const FunctionRunnerServiceClient = makeGenericClientConstructor(
 };
 
 function bytesFromBase64(b64: string): Uint8Array {
-  return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  return Uint8Array.from(globalThis.Buffer.from(b64, 'base64'));
 }
 
 function base64FromBytes(arr: Uint8Array): string {
-  return globalThis.Buffer.from(arr).toString("base64");
+  return globalThis.Buffer.from(arr).toString('base64');
 }
 
 type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin ? T
-  : T extends globalThis.Array<infer U> ? globalThis.Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
-  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
-  : Partial<T>;
+export type DeepPartial<T> = T extends Builtin
+  ? T
+  : T extends globalThis.Array<infer U>
+    ? globalThis.Array<DeepPartial<U>>
+    : T extends ReadonlyArray<infer U>
+      ? ReadonlyArray<DeepPartial<U>>
+      : T extends {}
+        ? { [K in keyof T]?: DeepPartial<T[K]> }
+        : Partial<T>;
 
 function isObject(value: any): boolean {
-  return typeof value === "object" && value !== null;
+  return typeof value === 'object' && value !== null;
 }
 
 function isSet(value: any): boolean {
