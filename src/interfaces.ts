@@ -1,1 +1,1 @@
-export type Entrypoint = () => void;
+export type Entrypoint = (...args: unknown[]) => void;

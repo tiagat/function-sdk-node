@@ -4,8 +4,8 @@ const entrypoints: Entrypoint[] = [];
 
 function Handler(): MethodDecorator {
   return (_target, _propertyKey, descriptor) => {
+    const fn = descriptor.value as Entrypoint;    
     if (typeof descriptor.value === "function") {
-      const fn = descriptor.value as Entrypoint;
       entrypoints.push(fn);
     }
   };
