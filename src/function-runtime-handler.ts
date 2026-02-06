@@ -12,11 +12,11 @@ import { Entrypoint } from './interfaces'
 
 
 const entrypoints: Entrypoint[] = [];
-let instance: unknown = null;
+let handlerInstance: unknown = null;
 
 // Store the runtime instance so handlers run with the correct `this` context.
 function setHandlerInstance(inst: unknown): void {
-  instance = inst;
+  handlerInstance = inst;
 }
 
 function Handler(): MethodDecorator {
@@ -29,7 +29,7 @@ function Handler(): MethodDecorator {
 }
 
 export function runEntrypoints(): void {
-  entrypoints.forEach((fn) => fn.call(instance));
+  entrypoints.forEach((fn) => fn.call(handlerInstance));
 }
 
 const grpcHandler: FunctionRunnerServiceServer["runFunction"] = (
