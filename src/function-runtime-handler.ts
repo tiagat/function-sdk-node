@@ -8,8 +8,7 @@ import {
   type FunctionRunnerServiceServer,
 } from "./gen/proto/run_function";
 
-import { Entrypoint } from './interfaces'
-
+import { Entrypoint } from "./interfaces";
 
 const entrypoints: Entrypoint[] = [];
 let handlerInstance: unknown = null;
