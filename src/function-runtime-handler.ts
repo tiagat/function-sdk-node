@@ -28,7 +28,7 @@ function Handler(): MethodDecorator {
   };
 }
 
-export function runEntrypoints(): void {
+function runEntrypoints(): void {
   entrypoints.forEach((fn) => fn.call(handlerInstance));
 }
 
@@ -50,4 +50,4 @@ const grpcHandler: FunctionRunnerServiceServer["runFunction"] = (
 };
 
 export { FunctionRunnerServiceService, Handler };
-export { grpcHandler, setHandlerInstance };
+export { grpcHandler, runEntrypoints, setHandlerInstance };
