@@ -2,7 +2,6 @@ import { Entrypoint } from "./interfaces";
 
 const entrypoints: Entrypoint[] = [];
 
-
 function Handler(): MethodDecorator {
   return (_target, _propertyKey, descriptor) => {
     if (typeof descriptor.value === "function") {
@@ -13,7 +12,7 @@ function Handler(): MethodDecorator {
 }
 
 function runEntrypoints(context: unknown): void {
-  entrypoints.forEach((fn) => fn.call(context));
+  entrypoints.forEach((fn) => fn.apply(context, []));
 }
 
 export { Handler };
