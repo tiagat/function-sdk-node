@@ -1,11 +1,11 @@
 import {
+  BaseLogger,
+  DestinationStream,
+  LevelWithSilentOrString,
+  LogFn,
+  LoggerOptions,
   pino,
   type Logger,
-  BaseLogger,
-  LoggerOptions,
-  DestinationStream,
-  LogFn,
-  LevelWithSilentOrString,
 } from "pino";
 import config from "./config";
 
