@@ -9,7 +9,25 @@ import {
   type FunctionRunnerServiceServer,
 } from "./gen/proto/run_function";
 
-const handler: FunctionRunnerServiceServer["runFunction"] = (
+
+type Entrypoint = () => void;
+
+const entrypoints: Entrypoint[] = [];
+
+function Handler(): MethodDecorator {
+  return (_target, _propertyKey, descriptor) => {
+    if (typeof descriptor.value === "function") {
+      entrypoints.push(descriptor.value as Entrypoint);
+    }
+  };
+}
+
+export function runEntrypoints(): void {
+  entrypoints.forEach((fn) => fn());
+}
+
+
+const grpcHandler: FunctionRunnerServiceServer["runFunction"] = (
   call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>,
   callback: grpc.sendUnaryData<RunFunctionResponse>,
 ): void => {
@@ -22,7 +40,9 @@ const handler: FunctionRunnerServiceServer["runFunction"] = (
     conditions: [],
   };
 
+  runEntrypoints();
+
   callback(null, response);
 };
 
-export { FunctionRunnerServiceService, handler };
+export { FunctionRunnerServiceService, grpcHandler, Handler };

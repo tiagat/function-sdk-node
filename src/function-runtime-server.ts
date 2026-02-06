@@ -2,7 +2,7 @@ import * as grpc from "@grpc/grpc-js";
 
 import {
   FunctionRunnerServiceService,
-  handler,
+  grpcHandler,
 } from "./function-runtime-handler";
 
 import config from "./config";
@@ -15,7 +15,7 @@ export class FunctionRuntimeServer {
 
   constructor() {
     this.server = new grpc.Server();
-    this.server.addService(FunctionRunnerServiceService, { runFunction: handler });
+    this.server.addService(FunctionRunnerServiceService, { runFunction: grpcHandler });
     
     signals.forEach((signal) => {
       process.once(signal, () => this.gracefulShutdown(signal));
