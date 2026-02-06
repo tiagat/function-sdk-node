@@ -1,45 +1,20 @@
-import { get } from 'http';
-import { Entrypoint } from './interfaces';
+import { Entrypoint, EntrypointFunction } from './function-entrypoint';
 
-interface EntrypointParameter {
-  index: number;
-  name: string;
-  value: unknown;
-}
-
-interface EntrypointMetadata {
-  fn: Entrypoint | undefined;
-  args: EntrypointParameter[];
-}
-
-const entrypoints: Map<string, EntrypointMetadata> = new Map();
-
-function getEntrypointMetadata(key: string): EntrypointMetadata {
-  const metadata = entrypoints.get(key);
-  if (!metadata) {
-    entrypoints.set(key, { fn: undefined, args: [] });
-  }
-  return entrypoints.get(key)!;
-}
-
-function setEntrypointMetadata(key: string, metadata: EntrypointMetadata): void {
-  entrypoints.set(key, metadata);
-}
 
 function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
-    const fn = descriptor.value as Entrypoint;
+    const fn = descriptor.value as EntrypointFunction;
     if (typeof descriptor.value === 'function') {
       const target = `${String(propertyKey)}`;
-      const metadata = getEntrypointMetadata(target);
+      const metadata = Entrypoint.metadata.get(target);
       metadata.fn = fn;
-      setEntrypointMetadata(target, metadata);
+      Entrypoint.metadata.set(target, metadata);
     }
   };
 }
 
 function runEntrypoints(context: unknown): void {
-  for (const [_entrypoint, metadata] of entrypoints.entries()) {
+  for (const [_entrypoint, metadata] of Entrypoint.entries()) {
     if (metadata.fn) {
       const argsMetadata = metadata.args.sort((a, b) => a.index - b.index);
       const args = Array(argsMetadata.length);
@@ -53,11 +28,5 @@ function runEntrypoints(context: unknown): void {
   }
 }
 
-function registerEntrypoint(target: string, index: number, name: string, value: unknown): void {
-  const metadata = getEntrypointMetadata(target);
-  metadata.args.push({ index, name, value });
-  setEntrypointMetadata(target, metadata);
-}
-
 export { Handler };
-export { runEntrypoints, registerEntrypoint };
+export { runEntrypoints };

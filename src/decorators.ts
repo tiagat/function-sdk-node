@@ -1,17 +1,17 @@
-import { registerEntrypoint } from './function-runtime-handler';
+import { Entrypoint } from './function-entrypoint';
 
 const DECORATOR_REQ_KEY = 'req';
 const DECORATOR_RES_KEY = 'res';
 
 function Req(): ParameterDecorator {
   return (_target, propertyKey, parameterIndex) => {
-    registerEntrypoint(`${String(propertyKey)}`, parameterIndex, DECORATOR_REQ_KEY, undefined);
+    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, DECORATOR_REQ_KEY, undefined);
   };
 }
 
 function Res(): ParameterDecorator {
   return (_target, propertyKey, parameterIndex) => {
-    registerEntrypoint(`${String(propertyKey)}`, parameterIndex, DECORATOR_RES_KEY, undefined);
+    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, DECORATOR_RES_KEY, undefined);
   };
 }
 
