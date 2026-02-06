@@ -1,5 +1,5 @@
 
-import { FunctionRuntime, Handler, Logger } from "./index";
+import { FunctionRuntime, Handler, Logger, Req, Res } from "./index";
 
 class MyFunction extends FunctionRuntime {
 
@@ -16,7 +16,8 @@ class MyFunction extends FunctionRuntime {
   }
 
   @Handler()
-  async mainAsync(): Promise<void> {
+  async mainAsync(@Req() req: unknown, @Res() res: unknown): Promise<void> {
+    this.logger.info({ req, res }, 'Request and Response');
     this.logger.info("Function Handler (mainAsync)");
   }
 
