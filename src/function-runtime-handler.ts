@@ -1,5 +1,4 @@
 import * as grpc from "@grpc/grpc-js";
-
 import logger from "./logger";
 
 import {
@@ -9,9 +8,16 @@ import {
   type FunctionRunnerServiceServer,
 } from "./gen/proto/run_function";
 
-type Entrypoint = () => void;
+import { Entrypoint } from './interfaces'
+
 
 const entrypoints: Entrypoint[] = [];
+let instance: unknown = null;
+
+// Store the runtime instance so handlers run with the correct `this` context.
+function setHandlerInstance(inst: unknown): void {
+  instance = inst;
+}
 
 function Handler(): MethodDecorator {
   return (_target, _propertyKey, descriptor) => {
@@ -23,7 +29,7 @@ function Handler(): MethodDecorator {
 }
 
 export function runEntrypoints(): void {
-  entrypoints.forEach((fn) => fn());
+  entrypoints.forEach((fn) => fn.call(instance));
 }
 
 const grpcHandler: FunctionRunnerServiceServer["runFunction"] = (
@@ -43,4 +49,5 @@ const grpcHandler: FunctionRunnerServiceServer["runFunction"] = (
   callback(null, response);
 };
 
-export { FunctionRunnerServiceService, grpcHandler, Handler };
+export { FunctionRunnerServiceService, Handler };
+export { grpcHandler, setHandlerInstance };
