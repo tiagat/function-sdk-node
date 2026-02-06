@@ -1,5 +1,9 @@
 
-import { FunctionRuntime, Handler, Logger} from "./index";
+import {
+  FunctionRuntime,
+  Handler,
+  Logger,
+} from "./index";
 
 class MyFunction extends FunctionRuntime {
 
