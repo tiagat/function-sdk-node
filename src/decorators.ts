@@ -38,3 +38,8 @@ export function Environment(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getEnvironment';
   return decoratorRegistry(method, undefined);
 }
+
+export function Composite(): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getComposite';
+  return decoratorRegistry(method, undefined);
+}

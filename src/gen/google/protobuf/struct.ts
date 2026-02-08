@@ -140,10 +140,13 @@ export const Struct: MessageFns<Struct> & StructWrapperFns = {
   fromJSON(object: any): Struct {
     return {
       fields: isObject(object.fields)
-        ? (globalThis.Object.entries(object.fields) as [string, any][]).reduce((acc: { [key: string]: any | undefined }, [key, value]: [string, any]) => {
-            acc[key] = value as any | undefined;
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.fields) as [string, any][]).reduce(
+            (acc: { [key: string]: any | undefined }, [key, value]: [string, any]) => {
+              acc[key] = value as any | undefined;
+              return acc;
+            },
+            {}
+          )
         : {}
     };
   },
@@ -377,7 +380,11 @@ export const Value: MessageFns<Value> & AnyValueWrapperFns = {
 
   fromJSON(object: any): Value {
     return {
-      nullValue: isSet(object.nullValue) ? nullValueFromJSON(object.nullValue) : isSet(object.null_value) ? nullValueFromJSON(object.null_value) : undefined,
+      nullValue: isSet(object.nullValue)
+        ? nullValueFromJSON(object.nullValue)
+        : isSet(object.null_value)
+          ? nullValueFromJSON(object.null_value)
+          : undefined,
       numberValue: isSet(object.numberValue)
         ? globalThis.Number(object.numberValue)
         : isSet(object.number_value)
@@ -388,7 +395,11 @@ export const Value: MessageFns<Value> & AnyValueWrapperFns = {
         : isSet(object.string_value)
           ? globalThis.String(object.string_value)
           : undefined,
-      boolValue: isSet(object.boolValue) ? globalThis.Boolean(object.boolValue) : isSet(object.bool_value) ? globalThis.Boolean(object.bool_value) : undefined,
+      boolValue: isSet(object.boolValue)
+        ? globalThis.Boolean(object.boolValue)
+        : isSet(object.bool_value)
+          ? globalThis.Boolean(object.bool_value)
+          : undefined,
       structValue: isObject(object.structValue) ? object.structValue : isObject(object.struct_value) ? object.struct_value : undefined,
       listValue: globalThis.Array.isArray(object.listValue)
         ? [...object.listValue]

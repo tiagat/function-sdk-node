@@ -702,27 +702,39 @@ export const RunFunctionRequest: MessageFns<RunFunctionRequest> = {
       input: isObject(object.input) ? object.input : undefined,
       context: isObject(object.context) ? object.context : undefined,
       extraResources: isObject(object.extraResources)
-        ? (globalThis.Object.entries(object.extraResources) as [string, any][]).reduce((acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
-            acc[key] = Resources.fromJSON(value);
-            return acc;
-          }, {})
-        : isObject(object.extra_resources)
-          ? (globalThis.Object.entries(object.extra_resources) as [string, any][]).reduce((acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.extraResources) as [string, any][]).reduce(
+            (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
               acc[key] = Resources.fromJSON(value);
               return acc;
-            }, {})
+            },
+            {}
+          )
+        : isObject(object.extra_resources)
+          ? (globalThis.Object.entries(object.extra_resources) as [string, any][]).reduce(
+              (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+                acc[key] = Resources.fromJSON(value);
+                return acc;
+              },
+              {}
+            )
           : {},
       credentials: isObject(object.credentials)
-        ? (globalThis.Object.entries(object.credentials) as [string, any][]).reduce((acc: { [key: string]: Credentials }, [key, value]: [string, any]) => {
-            acc[key] = Credentials.fromJSON(value);
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.credentials) as [string, any][]).reduce(
+            (acc: { [key: string]: Credentials }, [key, value]: [string, any]) => {
+              acc[key] = Credentials.fromJSON(value);
+              return acc;
+            },
+            {}
+          )
         : {},
       requiredResources: isObject(object.requiredResources)
-        ? (globalThis.Object.entries(object.requiredResources) as [string, any][]).reduce((acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
-            acc[key] = Resources.fromJSON(value);
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.requiredResources) as [string, any][]).reduce(
+            (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
+              acc[key] = Resources.fromJSON(value);
+              return acc;
+            },
+            {}
+          )
         : isObject(object.required_resources)
           ? (globalThis.Object.entries(object.required_resources) as [string, any][]).reduce(
               (acc: { [key: string]: Resources }, [key, value]: [string, any]) => {
@@ -1158,10 +1170,13 @@ export const CredentialData: MessageFns<CredentialData> = {
   fromJSON(object: any): CredentialData {
     return {
       data: isObject(object.data)
-        ? (globalThis.Object.entries(object.data) as [string, any][]).reduce((acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
-            acc[key] = Buffer.from(bytesFromBase64(value as string));
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.data) as [string, any][]).reduce(
+            (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+              acc[key] = Buffer.from(bytesFromBase64(value as string));
+              return acc;
+            },
+            {}
+          )
         : {}
     };
   },
@@ -1489,7 +1504,8 @@ export const RunFunctionResponse: MessageFns<RunFunctionResponse> = {
     message.desired = object.desired !== undefined && object.desired !== null ? State.fromPartial(object.desired) : undefined;
     message.results = object.results?.map((e) => Result.fromPartial(e)) || [];
     message.context = object.context ?? undefined;
-    message.requirements = object.requirements !== undefined && object.requirements !== null ? Requirements.fromPartial(object.requirements) : undefined;
+    message.requirements =
+      object.requirements !== undefined && object.requirements !== null ? Requirements.fromPartial(object.requirements) : undefined;
     message.conditions = object.conditions?.map((e) => Condition.fromPartial(e)) || [];
     message.output = object.output ?? undefined;
     return message;
@@ -1627,10 +1643,13 @@ export const Requirements: MessageFns<Requirements> = {
             )
           : {},
       resources: isObject(object.resources)
-        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce((acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
-            acc[key] = ResourceSelector.fromJSON(value);
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce(
+            (acc: { [key: string]: ResourceSelector }, [key, value]: [string, any]) => {
+              acc[key] = ResourceSelector.fromJSON(value);
+              return acc;
+            },
+            {}
+          )
         : {}
     };
   },
@@ -1919,9 +1938,17 @@ export const ResourceSelector: MessageFns<ResourceSelector> = {
 
   fromJSON(object: any): ResourceSelector {
     return {
-      apiVersion: isSet(object.apiVersion) ? globalThis.String(object.apiVersion) : isSet(object.api_version) ? globalThis.String(object.api_version) : '',
+      apiVersion: isSet(object.apiVersion)
+        ? globalThis.String(object.apiVersion)
+        : isSet(object.api_version)
+          ? globalThis.String(object.api_version)
+          : '',
       kind: isSet(object.kind) ? globalThis.String(object.kind) : '',
-      matchName: isSet(object.matchName) ? globalThis.String(object.matchName) : isSet(object.match_name) ? globalThis.String(object.match_name) : undefined,
+      matchName: isSet(object.matchName)
+        ? globalThis.String(object.matchName)
+        : isSet(object.match_name)
+          ? globalThis.String(object.match_name)
+          : undefined,
       matchLabels: isSet(object.matchLabels)
         ? MatchLabels.fromJSON(object.matchLabels)
         : isSet(object.match_labels)
@@ -1959,7 +1986,8 @@ export const ResourceSelector: MessageFns<ResourceSelector> = {
     message.apiVersion = object.apiVersion ?? '';
     message.kind = object.kind ?? '';
     message.matchName = object.matchName ?? undefined;
-    message.matchLabels = object.matchLabels !== undefined && object.matchLabels !== null ? MatchLabels.fromPartial(object.matchLabels) : undefined;
+    message.matchLabels =
+      object.matchLabels !== undefined && object.matchLabels !== null ? MatchLabels.fromPartial(object.matchLabels) : undefined;
     message.namespace = object.namespace ?? undefined;
     return message;
   }
@@ -2007,10 +2035,13 @@ export const MatchLabels: MessageFns<MatchLabels> = {
   fromJSON(object: any): MatchLabels {
     return {
       labels: isObject(object.labels)
-        ? (globalThis.Object.entries(object.labels) as [string, any][]).reduce((acc: { [key: string]: string }, [key, value]: [string, any]) => {
-            acc[key] = globalThis.String(value);
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.labels) as [string, any][]).reduce(
+            (acc: { [key: string]: string }, [key, value]: [string, any]) => {
+              acc[key] = globalThis.String(value);
+              return acc;
+            },
+            {}
+          )
         : {}
     };
   },
@@ -2253,10 +2284,13 @@ export const State: MessageFns<State> = {
     return {
       composite: isSet(object.composite) ? Resource.fromJSON(object.composite) : undefined,
       resources: isObject(object.resources)
-        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce((acc: { [key: string]: Resource }, [key, value]: [string, any]) => {
-            acc[key] = Resource.fromJSON(value);
-            return acc;
-          }, {})
+        ? (globalThis.Object.entries(object.resources) as [string, any][]).reduce(
+            (acc: { [key: string]: Resource }, [key, value]: [string, any]) => {
+              acc[key] = Resource.fromJSON(value);
+              return acc;
+            },
+            {}
+          )
         : {}
     };
   },
@@ -2438,15 +2472,21 @@ export const Resource: MessageFns<Resource> = {
     return {
       resource: isObject(object.resource) ? object.resource : undefined,
       connectionDetails: isObject(object.connectionDetails)
-        ? (globalThis.Object.entries(object.connectionDetails) as [string, any][]).reduce((acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
-            acc[key] = Buffer.from(bytesFromBase64(value as string));
-            return acc;
-          }, {})
-        : isObject(object.connection_details)
-          ? (globalThis.Object.entries(object.connection_details) as [string, any][]).reduce((acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+        ? (globalThis.Object.entries(object.connectionDetails) as [string, any][]).reduce(
+            (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
               acc[key] = Buffer.from(bytesFromBase64(value as string));
               return acc;
-            }, {})
+            },
+            {}
+          )
+        : isObject(object.connection_details)
+          ? (globalThis.Object.entries(object.connection_details) as [string, any][]).reduce(
+              (acc: { [key: string]: Buffer }, [key, value]: [string, any]) => {
+                acc[key] = Buffer.from(bytesFromBase64(value as string));
+                return acc;
+              },
+              {}
+            )
           : {},
       ready: isSet(object.ready) ? readyFromJSON(object.ready) : 0
     };
@@ -2823,7 +2863,11 @@ export interface FunctionRunnerServiceServer extends UntypedServiceImplementatio
 export interface FunctionRunnerServiceClient extends Client {
   /** RunFunction runs the function. */
   runFunction(request: RunFunctionRequest, callback: (error: ServiceError | null, response: RunFunctionResponse) => void): ClientUnaryCall;
-  runFunction(request: RunFunctionRequest, metadata: Metadata, callback: (error: ServiceError | null, response: RunFunctionResponse) => void): ClientUnaryCall;
+  runFunction(
+    request: RunFunctionRequest,
+    metadata: Metadata,
+    callback: (error: ServiceError | null, response: RunFunctionResponse) => void
+  ): ClientUnaryCall;
   runFunction(
     request: RunFunctionRequest,
     metadata: Metadata,

@@ -21,7 +21,10 @@ export class FunctionRuntimeServer {
     });
   }
 
-  private runFunction(call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>, callback: grpc.sendUnaryData<RunFunctionResponse>): void {
+  private runFunction(
+    call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>,
+    callback: grpc.sendUnaryData<RunFunctionResponse>
+  ): void {
     logger.info('Running Function');
     try {
       const handlerContext: RuntimeFunctionHandlerContext = {
