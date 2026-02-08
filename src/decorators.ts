@@ -1,7 +1,13 @@
 import { Entrypoint, EntrypointFunction } from './entrypoints';
 import { RuntimeFunctionProcessorMethod } from './function-runtime-processor';
 
-function Handler(): MethodDecorator {
+const decoratorRegistry = (processorMethod: RuntimeFunctionProcessorMethod, methodParameter: unknown): ParameterDecorator => {
+  return (_target, propertyKey, parameterIndex) => {
+    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, processorMethod, methodParameter);
+  };
+};
+
+export function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
     const fn = descriptor.value as EntrypointFunction;
     if (typeof descriptor.value === 'function') {
@@ -13,26 +19,22 @@ function Handler(): MethodDecorator {
   };
 }
 
-function decoratorRegistry(processorMethod: RuntimeFunctionProcessorMethod, methodParameter: unknown): ParameterDecorator {
-  return (_target, propertyKey, parameterIndex) => {
-    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, processorMethod, methodParameter);
-  };
+export function Req(): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getReq';
+  return decoratorRegistry(method, undefined);
 }
 
-function Req(): ParameterDecorator {
-  return decoratorRegistry('getReq', undefined);
+export function Res(): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getRes';
+  return decoratorRegistry(method, undefined);
 }
 
-function Res(): ParameterDecorator {
-  return decoratorRegistry('getRes', undefined);
+export function Call(): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getCall';
+  return decoratorRegistry(method, undefined);
 }
 
-function Call(): ParameterDecorator {
-  return decoratorRegistry('getCall', undefined);
+export function Callback(): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getCallback';
+  return decoratorRegistry(method, undefined);
 }
-
-function Callback(): ParameterDecorator {
-  return decoratorRegistry('getCallback', undefined);
-}
-
-export { Handler, Req, Req as Request, Res, Res as Response, Call, Callback };
