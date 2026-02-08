@@ -19,22 +19,22 @@ export function Handler(): MethodDecorator {
   };
 }
 
-export function Request(): ParameterDecorator {
+export function Req(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getRequest';
   return decoratorRegistry(method, undefined);
 }
 
-export function Response(): ParameterDecorator {
+export function Res(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getResponse';
   return decoratorRegistry(method, undefined);
 }
 
-export function Context(): ParameterDecorator {
+export function Ctx(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getContext';
   return decoratorRegistry(method, undefined);
 }
 
-export function Environment(): ParameterDecorator {
+export function Env(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getEnvironment';
   return decoratorRegistry(method, undefined);
 }
