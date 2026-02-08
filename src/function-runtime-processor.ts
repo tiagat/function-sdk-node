@@ -4,6 +4,8 @@ import { RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_functio
 import { RuntimeFunctionHandlerContext } from './function-runtime-handler';
 import { EntrypointFunction } from './entrypoints';
 
+import { ENVIRONMENT_CONFIG_KEY } from './constants';
+
 type PublicMethodNames<T> = {
   [K in keyof T]: T[K] extends EntrypointFunction ? K : never;
 }[keyof T];
@@ -26,12 +28,20 @@ class FunctionRuntimeProcessor {
     };
   }
 
-  getReq(): RunFunctionRequest {
+  getRequest(): RunFunctionRequest {
     return this.call.request;
   }
 
-  getRes(): RunFunctionResponse {
+  getResponse(): RunFunctionResponse {
     return this.response;
+  }
+
+  getContext(): { [key: string]: unknown } {
+    return this.call.request.context || {};
+  }
+
+  getEnvironment(): { [key: string]: string } {
+    return this.call.request.context?.[ENVIRONMENT_CONFIG_KEY] || {};
   }
 }
 

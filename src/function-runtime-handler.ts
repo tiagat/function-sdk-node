@@ -38,7 +38,7 @@ class RuntimeFunctionHandler {
       }
     }
 
-    return this.processor.getRes();
+    return this.processor.getResponse();
   }
 }
 
