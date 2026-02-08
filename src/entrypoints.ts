@@ -1,4 +1,4 @@
-export type EntrypointFunction = (...args: unknown[]) => void;
+export type EntrypointFunction = (...args: unknown[]) => unknown;
 
 export interface EntrypointParameter {
   index: number;

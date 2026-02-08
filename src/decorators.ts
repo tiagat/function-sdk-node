@@ -1,11 +1,5 @@
 import { Entrypoint, EntrypointFunction } from './entrypoints';
-
-const alias = {
-  Req: 'Req',
-  Res: 'Res',
-  Call: 'Call',
-  Callback: 'Callback'
-};
+import { RuntimeFunctionProcessorMethod} from './function-runtime-handler'
 
 function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
@@ -19,26 +13,26 @@ function Handler(): MethodDecorator {
   };
 }
 
-function decoratorRegistry(decoratorName: string, decoratorParameter: any): ParameterDecorator {
+function decoratorRegistry(processorMethod: RuntimeFunctionProcessorMethod, methodParameter: any): ParameterDecorator {
   return (_target, propertyKey, parameterIndex) => {
-    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, decoratorName, decoratorParameter);
+    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, processorMethod, methodParameter);
   };
 }
 
 function Req(): ParameterDecorator {
-  return decoratorRegistry(alias.Req, undefined);
+  return decoratorRegistry('getReq', undefined);
 }
 
 function Res(): ParameterDecorator {
-  return decoratorRegistry(alias.Res, undefined);
+  return decoratorRegistry('getRes', undefined);
 }
 
 function Call(): ParameterDecorator {
-  return decoratorRegistry(alias.Call, undefined);
+  return decoratorRegistry('getCall', undefined);
 }
 
 function Callback(): ParameterDecorator {
-  return decoratorRegistry(alias.Callback, undefined);
+  return decoratorRegistry('getCallback', undefined);
 }
 
-export { alias, Handler, Req, Req as Request, Res, Res as Response, Call, Callback };
+export { Handler, Req, Req as Request, Res, Res as Response, Call, Callback };
