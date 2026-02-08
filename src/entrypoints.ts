@@ -8,6 +8,7 @@ export interface EntrypointParameter {
 
 export interface EntrypointMetadata {
   fn: EntrypointFunction | undefined;
+  async: boolean;
   args: EntrypointParameter[];
 }
 
@@ -18,7 +19,7 @@ export class Entrypoint {
     get: (key: string): EntrypointMetadata => {
       const metadata = Entrypoint.entrypoints.get(key);
       if (!metadata) {
-        Entrypoint.entrypoints.set(key, { fn: undefined, args: [] });
+        Entrypoint.entrypoints.set(key, { fn: undefined, async: false, args: [] });
       }
       return Entrypoint.entrypoints.get(key)!;
     },

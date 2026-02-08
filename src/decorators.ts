@@ -7,6 +7,10 @@ const decoratorRegistry = (processorMethod: RuntimeFunctionProcessorMethod, meth
   };
 };
 
+const isAsync = (fn: EntrypointFunction): boolean => {
+  return fn.constructor && fn.constructor.name === 'AsyncFunction';
+};
+
 export function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
     const fn = descriptor.value as EntrypointFunction;
@@ -14,6 +18,7 @@ export function Handler(): MethodDecorator {
       const target = `${String(propertyKey)}`;
       const metadata = Entrypoint.metadata.get(target);
       metadata.fn = fn;
+      metadata.async = isAsync(fn);
       Entrypoint.metadata.set(target, metadata);
     }
   };

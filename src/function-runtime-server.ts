@@ -21,10 +21,10 @@ export class FunctionRuntimeServer {
     });
   }
 
-  private runFunction(
+  private async runFunction(
     call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>,
     callback: grpc.sendUnaryData<RunFunctionResponse>
-  ): void {
+  ): Promise<void> {
     logger.info('Running Function');
     try {
       const handlerContext: RuntimeFunctionHandlerContext = {
@@ -33,7 +33,7 @@ export class FunctionRuntimeServer {
         functionContext: this.functionContext
       };
       const handler = new RuntimeFunctionHandler(handlerContext);
-      const response = handler.runEntrypoints();
+      const response = await handler.runEntrypoints();
       callback(null, response);
     } catch (err) {
       logger.error({ err }, 'Error running function');

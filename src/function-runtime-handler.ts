@@ -20,7 +20,7 @@ class RuntimeFunctionHandler {
     this.functionContext = context.functionContext;
   }
 
-  runEntrypoints(): RunFunctionResponse {
+  async runEntrypoints(): Promise<RunFunctionResponse> {
     for (const handler of Entrypoint.values()) {
       if (handler.fn) {
         const handlerArgsMeta = handler.args.sort((a, b) => a.index - b.index);
@@ -34,7 +34,10 @@ class RuntimeFunctionHandler {
           args[arg.index] = result;
         }
 
-        handler.fn.apply(this.functionContext, args);
+        const result = handler.fn.apply(this.functionContext, args);
+        if (handler.async) {
+          await Promise.resolve(result);
+        }
       }
     }
 
