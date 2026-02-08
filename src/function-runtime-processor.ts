@@ -40,7 +40,7 @@ class FunctionRuntimeProcessor {
     return this.call.request.context || {};
   }
 
-  getEnvironment(): { [key: string]: string } {
+  getEnvironment(): { [key: string]: unknown } {
     return this.call.request.context?.[ENVIRONMENT_CONFIG_KEY] || {};
   }
 }

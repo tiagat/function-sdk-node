@@ -1,12 +1,16 @@
-import { FunctionRuntime, Handler, Logger, Environment } from './index';
+import { FunctionRuntime, Handler, Logger, Environment, Context } from './index';
 
 class MyFunction extends FunctionRuntime {
   logger = new Logger();
 
   @Handler()
-  main(@Environment() env: Record<string, string>): void {
+  getEnvironment(@Environment() env: Record<string, unknown>): void {
     this.logger.info({ env }, 'Environment Config');
-    env['test'] = 'Hello, World!';
+  }
+
+  @Handler()
+  getContext(@Context() ctx: Record<string, unknown>): void {
+    this.logger.info({ ctx }, 'Function Context');
   }
 }
 
