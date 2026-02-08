@@ -58,21 +58,20 @@ class RuntimeFunctionHandler {
   }
 
   runEntrypoints(): RunFunctionResponse {
-    for (const metadata of Entrypoint.values()) {
-      if (metadata.fn) {
-        const argsMetadata = metadata.args.sort((a, b) => a.index - b.index);
-
-        const argsCount = argsMetadata.length ? Math.max(...argsMetadata.map((arg) => arg.index)) + 1 : 0;
+    for (const handler of Entrypoint.values()) {
+      if (handler.fn) {
+        const handlerArgsMeta = handler.args.sort((a, b) => a.index - b.index);
+        const argsCount = handlerArgsMeta.length ? Math.max(...handlerArgsMeta.map((arg) => arg.index)) + 1 : 0;
         const args = Array(argsCount);
 
-        for (const argMeta of argsMetadata) {
-          const methodName = argMeta.name as RuntimeFunctionProcessorMethod;
+        for (const arg of handlerArgsMeta) {
+          const methodName = arg.name as RuntimeFunctionProcessorMethod;
           const callback = this.processor[methodName] as EntrypointFunction;
-          const result = callback.apply(this.processor, [argMeta.value]);
-          args[argMeta.index] = result;
+          const result = callback.apply(this.processor, [arg.value]);
+          args[arg.index] = result;
         }
 
-        metadata.fn.apply(this.functionContext, args);
+        handler.fn.apply(this.functionContext, args);
       }
     }
 
