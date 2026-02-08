@@ -5,7 +5,7 @@ const logger = new Logger();
 
 class MyFunction extends FunctionRuntime {
   @Handler()
-  async getRequest(@Req() req: Request): Promise<void> {
+  getRequest(@Req() req: Request): void {
     logger.info({ req }, 'Received request');
   }
 
