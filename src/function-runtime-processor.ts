@@ -26,14 +26,6 @@ class FunctionRuntimeProcessor {
     };
   }
 
-  getCall(): grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse> {
-    return this.call;
-  }
-
-  getCallback(): grpc.sendUnaryData<RunFunctionResponse> {
-    return this.callback;
-  }
-
   getReq(): RunFunctionRequest {
     return this.call.request;
   }

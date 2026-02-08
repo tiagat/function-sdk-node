@@ -28,13 +28,3 @@ export function Res(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getRes';
   return decoratorRegistry(method, undefined);
 }
-
-export function Call(): ParameterDecorator {
-  const method: RuntimeFunctionProcessorMethod = 'getCall';
-  return decoratorRegistry(method, undefined);
-}
-
-export function Callback(): ParameterDecorator {
-  const method: RuntimeFunctionProcessorMethod = 'getCallback';
-  return decoratorRegistry(method, undefined);
-}

@@ -8,7 +8,7 @@ class MyFunction extends FunctionRuntime {
     const bucket: Resource = {
       resource: {
         apiVersion: 's3.aws.m.upbound.io/v1beta1',
-        kind: 'Bucket',
+        kind: 'Bucket'
       },
       connectionDetails: {},
       ready: Ready.READY_TRUE
