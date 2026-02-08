@@ -1,5 +1,5 @@
 import { Entrypoint, EntrypointFunction } from './entrypoints';
-import { RuntimeFunctionProcessorMethod} from './function-runtime-handler'
+import { RuntimeFunctionProcessorMethod } from './function-runtime-processor';
 
 function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
@@ -13,7 +13,7 @@ function Handler(): MethodDecorator {
   };
 }
 
-function decoratorRegistry(processorMethod: RuntimeFunctionProcessorMethod, methodParameter: any): ParameterDecorator {
+function decoratorRegistry(processorMethod: RuntimeFunctionProcessorMethod, methodParameter: unknown): ParameterDecorator {
   return (_target, propertyKey, parameterIndex) => {
     Entrypoint.register(`${String(propertyKey)}`, parameterIndex, processorMethod, methodParameter);
   };

@@ -1,12 +1,4 @@
-import {
-  FunctionRuntime,
-  Handler,
-  Logger,
-  Req,
-  Res,
-  RunFunctionRequest,
-  RunFunctionResponse,
-} from './index';
+import { FunctionRuntime, Handler, Logger, Req, Res, RunFunctionRequest, RunFunctionResponse } from './index';
 
 class MyFunction extends FunctionRuntime {
   logger = new Logger();
