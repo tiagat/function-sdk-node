@@ -1,5 +1,6 @@
 import { Logger, FunctionRuntime } from './index';
-import { Composite, Ctx, Env, Handler, Req, Resource, Res, Request, Response, Environment, Context } from './index';
+import { Handler, Req, Res, Ctx, Env, Composite } from './index';
+import { Request, Response, Environment, Context, Resource } from './index';
 
 const logger = new Logger();
 
