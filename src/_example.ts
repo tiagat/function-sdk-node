@@ -6,27 +6,23 @@ const logger = new Logger();
 
 class MyFunction extends FunctionRuntime {
   @Handler()
-  getRequest(@Req() req: Request): void {
+  example1(@Req() req: Request, @Res() res: Response): void {
     logger.info({ req }, 'Received request');
-  }
-
-  @Handler()
-  getResponse(@Res() res: Response): void {
     logger.info({ res }, 'Function Response');
   }
 
   @Handler()
-  getEnvironment(@Env() env: Environment): void {
-    logger.info({ env }, 'Environment Config');
-  }
-
-  @Handler()
-  getContext(@Ctx() ctx: Context): void {
+  example2(@Ctx() ctx: Context): void {
     logger.info({ ctx }, 'Function Context');
   }
 
   @Handler()
-  getComposite(@Composite() composite?: Resource): void {
+  example3(@Env() env: Environment): void {
+    logger.info({ env }, 'Environment Config');
+  }
+
+  @Handler()
+  example4(@Composite() composite?: Resource): void {
     logger.info({ composite }, 'Observed Composite Resource');
   }
 }
