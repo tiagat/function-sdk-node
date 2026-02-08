@@ -1,7 +1,11 @@
 import { Entrypoint, EntrypointFunction } from './entrypoints';
 
-const DECORATOR_REQ_KEY = 'req';
-const DECORATOR_RES_KEY = 'res';
+const alias = {
+  Req: 'Req',
+  Res: 'Res',
+  Call: 'Call',
+  Callback: 'Callback'
+};
 
 function Handler(): MethodDecorator {
   return (_target, propertyKey, descriptor) => {
@@ -15,16 +19,26 @@ function Handler(): MethodDecorator {
   };
 }
 
-function Req(): ParameterDecorator {
+function decoratorRegistry(decoratorName: string, decoratorParameter: any): ParameterDecorator {
   return (_target, propertyKey, parameterIndex) => {
-    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, DECORATOR_REQ_KEY, undefined);
+    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, decoratorName, decoratorParameter);
   };
+}
+
+function Req(): ParameterDecorator {
+  return decoratorRegistry(alias.Req, undefined);
 }
 
 function Res(): ParameterDecorator {
-  return (_target, propertyKey, parameterIndex) => {
-    Entrypoint.register(`${String(propertyKey)}`, parameterIndex, DECORATOR_RES_KEY, undefined);
-  };
+  return decoratorRegistry(alias.Res, undefined);
 }
 
-export { Handler, Req, Req as Request, Res, Res as Response };
+function Call(): ParameterDecorator {
+  return decoratorRegistry(alias.Call, undefined);
+}
+
+function Callback(): ParameterDecorator {
+  return decoratorRegistry(alias.Callback, undefined);
+}
+
+export { alias, Handler, Req, Req as Request, Res, Res as Response, Call, Callback };

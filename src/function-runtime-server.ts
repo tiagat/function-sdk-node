@@ -5,12 +5,12 @@ import { FunctionRunnerServiceService, RunFunctionRequest, RunFunctionResponse }
 import config from './config';
 import logger from './logger';
 
-import { runEntrypoints } from './function-runtime-handler';
+import { RuntimeFunctionHandlerContext, RuntimeFunctionHandler } from './function-runtime-handler';
 
 export class FunctionRuntimeServer {
   private server: grpc.Server;
 
-  constructor(private readonly handlerContext: unknown) {
+  constructor(private readonly functionContext: unknown) {
     this.server = new grpc.Server();
     this.server.addService(FunctionRunnerServiceService, {
       runFunction: this.runFunction.bind(this)
@@ -23,16 +23,14 @@ export class FunctionRuntimeServer {
 
   private runFunction(call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>, callback: grpc.sendUnaryData<RunFunctionResponse>): void {
     logger.info('Running Function');
-
-    const response: RunFunctionResponse = {
-      context: call.request.context,
-      desired: call.request.desired,
-      results: [],
-      conditions: []
-    };
-
     try {
-      runEntrypoints(this.handlerContext);
+      const handlerContext: RuntimeFunctionHandlerContext = {
+        call,
+        callback,
+        functionContext: this.functionContext
+      };
+      const handler = new RuntimeFunctionHandler(handlerContext);
+      const response = handler.runEntrypoints();
       callback(null, response);
     } catch (err) {
       logger.error({ err }, 'Error running function');
