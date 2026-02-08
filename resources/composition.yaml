@@ -34,5 +34,12 @@ spec:
                 forProvider:
                   region: us-east-2
     - step: render-template
+      requirements:
+        requiredResources:
+        - requirementName: app-config
+          apiVersion: v1
+          kind: ConfigMap
+          name: simple-config
+          namespace: default
       functionRef:
         name: function-debug
