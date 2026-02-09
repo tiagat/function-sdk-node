@@ -32,7 +32,7 @@ spec:
               kind: Bucket
               spec:
                 forProvider:
-                  region: us-east-2
+                  region: eu-west-1
     - step: render-template
       requirements:
         requiredResources:
