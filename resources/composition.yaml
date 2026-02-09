@@ -41,5 +41,7 @@ spec:
           kind: ConfigMap
           name: simple-config
           namespace: default
+      input:
+        test: parameter
       functionRef:
         name: function-debug

@@ -1,6 +1,6 @@
 import { Logger, FunctionRuntime } from './index';
-import { Handler, Req, Res, Ctx, Env, Composite } from './index';
-import { Request, Response, Environment, Context, Resource } from './index';
+import { Handler, Req, Res, Ctx, Env, Input, Composite } from './index';
+import { Request, Response, Resource } from './index';
 
 const logger = new Logger();
 
@@ -12,17 +12,22 @@ class MyFunction extends FunctionRuntime {
   }
 
   @Handler()
-  example2(@Ctx() ctx: Context): void {
+  example2(@Ctx() ctx: Record<string, unknown>): void {
     logger.info({ ctx }, 'Function Context');
   }
 
   @Handler()
-  example3(@Env() env: Environment): void {
+  example3(@Env() env: Record<string, unknown>): void {
     logger.info({ env }, 'Environment Config');
   }
 
   @Handler()
-  example4(@Composite() composite?: Resource): void {
+  example4(@Input() input?: Record<string, unknown>): void {
+    logger.info({ input }, 'Function Input');
+  }
+
+  @Handler()
+  example5(@Composite() composite?: Resource): void {
     logger.info({ composite }, 'Observed Composite Resource');
   }
 }

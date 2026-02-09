@@ -44,6 +44,11 @@ export function Env(): ParameterDecorator {
   return decoratorRegistry(method, undefined);
 }
 
+export function Input(): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getInput';
+  return decoratorRegistry(method, undefined);
+}
+
 export function Composite(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getComposite';
   return decoratorRegistry(method, undefined);

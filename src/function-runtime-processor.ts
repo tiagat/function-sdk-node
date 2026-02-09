@@ -1,7 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
 import { Resource, RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
 
-import { Context, Environment } from './interfaces';
 import { RuntimeFunctionHandlerContext } from './function-runtime-handler';
 import { EntrypointFunction } from './entrypoints';
 
@@ -37,7 +36,7 @@ class FunctionRuntimeProcessor {
     return this.response;
   }
 
-  getContext(): Context {
+  getContext(): Record<string, unknown> {
     if (!this.call.request.context) {
       this.call.request.context = {
         [ENVIRONMENT_CONFIG_KEY]: {}
@@ -46,13 +45,17 @@ class FunctionRuntimeProcessor {
     return this.call.request.context;
   }
 
-  getEnvironment(): Environment {
+  getEnvironment(): Record<string, unknown> {
     if (!this.call.request.context) {
       this.call.request.context = {
         [ENVIRONMENT_CONFIG_KEY]: {}
       };
     }
     return this.call.request.context[ENVIRONMENT_CONFIG_KEY];
+  }
+
+  getInput(): Record<string, unknown> | undefined {
+    return this.call.request.input;
   }
 
   getComposite(): Resource | undefined {
