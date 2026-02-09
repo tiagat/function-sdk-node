@@ -41,7 +41,7 @@ class MyFunction extends FunctionRuntime {
   @Handler({
     required: [
       {
-        requirementName: 'app-config-dynamic',
+        requirementName: 'app-config-dynamic-1',
         apiVersion: 'v1',
         kind: 'ConfigMap',
         namespace: 'default',
@@ -49,10 +49,8 @@ class MyFunction extends FunctionRuntime {
       }
     ]
   })
-  example7(@Required('app-config-dynamic') required?: Resource[]): void {
-    if (!required || required.length === 0) return;
-    const resource = required[0];
-    logger.info({ resource }, 'Required Resource (loaded by @Handler)');
+  example7(@Req() req: Request, @Res() res: Response): void {
+    logger.info({ req, res }, 'Required Resource (loaded by helper function)');
   }
 }
 
