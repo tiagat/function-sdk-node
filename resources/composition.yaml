@@ -36,7 +36,7 @@ spec:
     - step: render-template
       requirements:
         requiredResources:
-        - requirementName: app-config
+        - requirementName: app-config-static
           apiVersion: v1
           kind: ConfigMap
           name: simple-config

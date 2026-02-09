@@ -2,12 +2,12 @@ import * as grpc from '@grpc/grpc-js';
 import { Resource, RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
 
 import { RuntimeFunctionHandlerContext } from './function-runtime-handler';
-import { EntrypointFunction } from './entrypoints';
 
 import { ENVIRONMENT_CONFIG_KEY } from './constants';
 
 type PublicMethodNames<T> = {
-  [K in keyof T]: T[K] extends EntrypointFunction ? K : never;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  [K in keyof T]: T[K] extends (...args: any[]) => any ? K : never;
 }[keyof T];
 
 type RuntimeFunctionProcessorMethod = PublicMethodNames<FunctionRuntimeProcessor>;
@@ -62,11 +62,13 @@ class FunctionRuntimeProcessor {
     return this.call.request.observed?.composite;
   }
 
-  // getObserved(name: string): Resource[] | undefined {
-  //   return undefined;
-  // }
+  getRequired(name: string): Resource[] | undefined {
+    console.log(`getRequired called with name: ${name}`);
+    const resources = this.call.request.requiredResources[name];
+    return resources ? resources.items : undefined;
+  }
 
-  // getRequired(name: string): Resource[] | undefined {
+  // getObserved(name: string): Resource[] | undefined {
   //   return undefined;
   // }
 }

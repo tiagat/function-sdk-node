@@ -1,5 +1,5 @@
 import { Logger, FunctionRuntime } from './index';
-import { Handler, Req, Res, Ctx, Env, Input, Composite } from './index';
+import { Handler, Req, Res, Ctx, Env, Input, Composite, Required } from './index';
 import { Request, Response, Resource } from './index';
 
 const logger = new Logger();
@@ -29,6 +29,13 @@ class MyFunction extends FunctionRuntime {
   @Handler()
   example5(@Composite() composite?: Resource): void {
     logger.info({ composite }, 'Observed Composite Resource');
+  }
+
+  @Handler()
+  example6(@Required('app-config-static') required?: Resource[]): void {
+    if (!required || required.length === 0) return;
+    const resource = required[0];
+    logger.info({ resource }, 'Required Resource');
   }
 }
 

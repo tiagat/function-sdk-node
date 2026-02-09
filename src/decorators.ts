@@ -53,3 +53,8 @@ export function Composite(): ParameterDecorator {
   const method: RuntimeFunctionProcessorMethod = 'getComposite';
   return decoratorRegistry(method, undefined);
 }
+
+export function Required(name: string): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getRequired';
+  return decoratorRegistry(method, name);
+}
