@@ -26,10 +26,12 @@ spec:
         apiVersion: pt.fn.crossplane.io/v1beta1
         kind: Resources
         resources:
-          - name: bucket
+          - name: bucket-primary
             base:
               apiVersion: s3.aws.m.upbound.io/v1beta1
               kind: Bucket
+              annotations:
+                crossplane.io/external-name: bucket-primary.tiagat.dev
               spec:
                 forProvider:
                   region: eu-west-1

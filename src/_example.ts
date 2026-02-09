@@ -1,7 +1,7 @@
 import { Logger, FunctionRuntime, Composed } from './index';
 import { Handler, Req, Res, Ctx, Env, Input, Composite, Required } from './index';
 import { Request, Response, Resource, ResourceSelector } from './index';
-import { requiredResource } from './index';
+import { requiredResource, composedResource } from './index';
 
 const logger = new Logger();
 
@@ -33,7 +33,7 @@ class MyFunction extends FunctionRuntime {
   }
 
   @Handler()
-  example6(@Composed('bucket') composed?: Resource): void {
+  example6(@Composed('bucket-primary') composed?: Resource): void {
     if (!composed) return;
     logger.info({ composed }, 'Observed Composed Resource');
   }
@@ -79,6 +79,26 @@ class MyFunction extends FunctionRuntime {
 
     const resource = required[0];
     logger.info({ resource }, 'Required Resource (loaded by helper function)');
+  }
+
+  @Handler()
+  example10(@Req() req: Request, @Res() res: Response): void {
+    const resource = composedResource(req, res, 'bucket-secondary', {
+      apiVersion: 's3.aws.m.upbound.io/v1beta1',
+      kind: 'Bucket',
+      metadata: {
+        annotations: {
+          'crossplane.io/external-name': 'secondary-bucket.tiagat.dev'
+        }
+      },
+      spec: {
+        forProvider: {
+          region: 'eu-west-1'
+        }
+      }
+    });
+    if (!resource) return;
+    logger.info({ resource }, 'Observed Composed Resource (loaded by helper function)');
   }
 }
 
