@@ -61,7 +61,6 @@ class FunctionRuntimeProcessor {
   }
 
   getRequired(name: string): Resource[] | undefined {
-    console.log(`getRequired called with name: ${name}`);
     const resources = this.call.request.requiredResources[name];
     return resources ? resources.items : undefined;
   }
