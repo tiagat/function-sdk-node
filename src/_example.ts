@@ -37,6 +37,13 @@ class MyFunction extends FunctionRuntime {
     const resource = required[0];
     logger.info({ resource }, 'Required Resource (loaded by composition configuration)');
   }
+
+  @Handler()
+  example7(@Required('app-config-dynamic') required?: Resource[]): void {
+    if (!required || required.length === 0) return;
+    const resource = required[0];
+    logger.info({ resource }, 'Required Resource (loaded by @Handler)');
+  }
 }
 
 new MyFunction();
