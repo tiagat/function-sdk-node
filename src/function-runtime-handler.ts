@@ -3,6 +3,7 @@ import * as grpc from '@grpc/grpc-js';
 import { RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
 import { Entrypoint, EntrypointFunction } from './entrypoints';
 
+import { FunctionRequirements } from './function-requirements';
 import { FunctionRuntimeProcessor, RuntimeFunctionProcessorMethod } from './function-runtime-processor';
 
 interface RuntimeFunctionHandlerContext {
@@ -21,6 +22,9 @@ class RuntimeFunctionHandler {
   }
 
   async runEntrypoints(): Promise<RunFunctionResponse> {
+    const response = this.processor.getResponse();
+    FunctionRequirements.updateRequirements(response);
+
     for (const handler of Entrypoint.values()) {
       if (handler.fn) {
         const handlerArgsMeta = handler.args.sort((a, b) => a.index - b.index);
@@ -41,7 +45,7 @@ class RuntimeFunctionHandler {
       }
     }
 
-    return this.processor.getResponse();
+    return response;
   }
 }
 

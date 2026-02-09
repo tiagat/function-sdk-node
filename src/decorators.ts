@@ -1,6 +1,7 @@
 import { Entrypoint, EntrypointFunction } from './entrypoints';
 import { RuntimeFunctionProcessorMethod } from './function-runtime-processor';
 import { ResourceSelector } from './interfaces';
+import { FunctionRequirements } from './function-requirements';
 
 const decoratorRegistry = (processorMethod: RuntimeFunctionProcessorMethod, methodParameter: unknown): ParameterDecorator => {
   return (_target, propertyKey, parameterIndex) => {
@@ -18,7 +19,7 @@ export interface HandlerOptions {
 
 export function Handler(options?: HandlerOptions): MethodDecorator {
   if (options?.required) {
-    console.log(options);
+    options.required.forEach((selector) => FunctionRequirements.registerSelector(selector));
   }
   return (_target, propertyKey, descriptor) => {
     const fn = descriptor.value as EntrypointFunction;
