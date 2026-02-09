@@ -1,0 +1,12 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "render",
+			"problemMatcher": [],
+			"label": "npm: render",
+			"detail": "crossplane render resources/xr.yaml resources/composition.yaml resources/function.yaml -e resources/required.yaml"
+		}
+	]
+}
