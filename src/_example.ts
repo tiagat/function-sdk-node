@@ -1,4 +1,4 @@
-import { Logger, FunctionRuntime } from './index';
+import { Logger, FunctionRuntime, Observed } from './index';
 import { Handler, Req, Res, Ctx, Env, Input, Composite, Required } from './index';
 import { Request, Response, Resource, ResourceSelector } from './index';
 import { requiredResource } from './index';
@@ -73,6 +73,12 @@ class MyFunction extends FunctionRuntime {
 
     const resource = required[0];
     logger.info({ resource }, 'Required Resource (loaded by helper function)');
+  }
+
+  @Handler()
+  example9(@Observed('bucket') observed?: Resource): void {
+    if (!observed) return;
+    logger.info({ observed }, 'Observed Resource');
   }
 }
 

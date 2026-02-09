@@ -65,9 +65,9 @@ class FunctionRuntimeProcessor {
     return resources ? resources.items : undefined;
   }
 
-  // getObserved(name: string): Resource[] | undefined {
-  //   return undefined;
-  // }
+  getObserved(name: string): Resource | undefined {
+    return this.call.request.observed?.resources[name];
+  }
 }
 
 export { FunctionRuntimeProcessor, RuntimeFunctionProcessorMethod };
