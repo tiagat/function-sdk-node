@@ -83,22 +83,20 @@ class MyFunction extends FunctionRuntime {
 
   @Handler()
   example10(@Req() req: Request, @Res() res: Response): void {
-    const resource = composedResource(req, res, 'bucket-secondary', {
+    const bucket = composedResource(req, res, 'bucket-secondary');
+    bucket.resource = {
       apiVersion: 's3.aws.m.upbound.io/v1beta1',
       kind: 'Bucket',
-      metadata: {
-        annotations: {
-          'crossplane.io/external-name': 'secondary-bucket.tiagat.dev'
-        }
+      annotations: {
+        'crossplane.io/external-name:': 'bucket-secondary.tiagat.dev'
       },
       spec: {
         forProvider: {
           region: 'eu-west-1'
         }
       }
-    });
-    if (!resource) return;
-    logger.info({ resource }, 'Observed Composed Resource (loaded by helper function)');
+    };
+    logger.info({ bucket: bucket.toObject() }, 'Desired State');
   }
 }
 

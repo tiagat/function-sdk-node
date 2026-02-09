@@ -1,6 +1,7 @@
-import { Ready, Resource, RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
+import { Resource, RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
 import { ResourceSelector } from './interfaces';
 import { FunctionRequirements } from './function-requirements';
+import { ComposedResource } from './composed-resource';
 
 export function requiredResource(req: RunFunctionRequest, res: RunFunctionResponse, selector: ResourceSelector): Resource[] | undefined {
   FunctionRequirements.registerSelector(selector);
@@ -11,23 +12,12 @@ export function requiredResource(req: RunFunctionRequest, res: RunFunctionRespon
 export function composedResource(
   req: RunFunctionRequest,
   res: RunFunctionResponse,
-  name: string,
-  resource: Record<string, unknown>
-): Resource | undefined {
-  const composed: Resource = {
-    resource: { ...resource },
-    connectionDetails: {},
-    ready: Ready.READY_TRUE
-  };
-
-  const existing = req.observed?.resources[name] || {};
-  const combined = Object.assign({}, existing, composed);
-
-  if (!res.desired) {
-    res.desired = { resources: {} };
+  compositionName: string,
+  resource?: { [key: string]: unknown }
+): ComposedResource {
+  const desiredResource = new ComposedResource(req, res, compositionName);
+  if (resource) {
+    desiredResource.resource = { ...resource };
   }
-
-  res.desired.resources[name] = combined;
-
-  return combined;
+  return desiredResource;
 }
