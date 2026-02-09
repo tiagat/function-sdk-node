@@ -35,7 +35,7 @@ class MyFunction extends FunctionRuntime {
   example6(@Required('app-config-static') required?: Resource[]): void {
     if (!required || required.length === 0) return;
     const resource = required[0];
-    logger.info({ resource }, 'Required Resource');
+    logger.info({ resource }, 'Required Resource (loaded by composition configuration)');
   }
 }
 
