@@ -39,8 +39,8 @@ spec:
         - requirementName: app-config-static
           apiVersion: v1
           kind: ConfigMap
-          name: simple-config
           namespace: default
+          name: simple-config
       input:
         test: parameter
       functionRef:

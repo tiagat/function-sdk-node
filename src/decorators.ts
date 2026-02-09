@@ -11,7 +11,23 @@ const isAsync = (fn: EntrypointFunction): boolean => {
   return fn.constructor && fn.constructor.name === 'AsyncFunction';
 };
 
-export function Handler(): MethodDecorator {
+interface HandlerOptionsRequired {
+  requirementName: string;
+  apiVersion: string;
+  kind: string;
+  namespace?: string;
+  matchName?: string;
+  matchLabels?: Record<string, string>;
+}
+
+export interface HandlerOptions {
+  required?: HandlerOptionsRequired[];
+}
+
+export function Handler(options?: HandlerOptions): MethodDecorator {
+  if (options?.required) {
+    console.log(options);
+  }
   return (_target, propertyKey, descriptor) => {
     const fn = descriptor.value as EntrypointFunction;
     if (typeof descriptor.value === 'function') {

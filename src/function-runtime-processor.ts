@@ -14,12 +14,10 @@ type RuntimeFunctionProcessorMethod = PublicMethodNames<FunctionRuntimeProcessor
 
 class FunctionRuntimeProcessor {
   private readonly call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>;
-  private readonly callback: grpc.sendUnaryData<RunFunctionResponse>;
   private readonly response: RunFunctionResponse;
 
   constructor(context: RuntimeFunctionHandlerContext) {
     this.call = context.call;
-    this.callback = context.callback;
     this.response = {
       context: this.call.request.context,
       desired: this.call.request.desired,

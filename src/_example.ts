@@ -38,7 +38,17 @@ class MyFunction extends FunctionRuntime {
     logger.info({ resource }, 'Required Resource (loaded by composition configuration)');
   }
 
-  @Handler()
+  @Handler({
+    required: [
+      {
+        requirementName: 'app-config-dynamic',
+        apiVersion: 'v1',
+        kind: 'ConfigMap',
+        namespace: 'default',
+        matchName: 'app-config-dynamic'
+      }
+    ]
+  })
   example7(@Required('app-config-dynamic') required?: Resource[]): void {
     if (!required || required.length === 0) return;
     const resource = required[0];
