@@ -1,4 +1,4 @@
-import { Logger, FunctionRuntime, Observed } from './index';
+import { Logger, FunctionRuntime, Composed } from './index';
 import { Handler, Req, Res, Ctx, Env, Input, Composite, Required } from './index';
 import { Request, Response, Resource, ResourceSelector } from './index';
 import { requiredResource } from './index';
@@ -33,7 +33,13 @@ class MyFunction extends FunctionRuntime {
   }
 
   @Handler()
-  example6(@Required('app-config-static') required?: Resource[]): void {
+  example6(@Composed('bucket') composed?: Resource): void {
+    if (!composed) return;
+    logger.info({ composed }, 'Observed Composed Resource');
+  }
+
+  @Handler()
+  example7(@Required('app-config-static') required?: Resource[]): void {
     if (!required || required.length === 0) return;
     const resource = required[0];
     logger.info({ resource }, 'Required Resource (loaded by composition configuration)');
@@ -50,14 +56,14 @@ class MyFunction extends FunctionRuntime {
       }
     ]
   })
-  example7(@Required('app-config-dynamic-1') required?: Resource[]): void {
+  example8(@Required('app-config-dynamic-1') required?: Resource[]): void {
     if (!required || required.length === 0) return;
     const resource = required[0];
     logger.info({ resource }, 'Required Resource (loaded by handler configuration)');
   }
 
   @Handler()
-  example8(@Req() req: Request, @Res() res: Response): void {
+  example9(@Req() req: Request, @Res() res: Response): void {
     const selector: ResourceSelector = {
       requirementName: 'app-config-dynamic-2',
       apiVersion: 'v1',
@@ -73,12 +79,6 @@ class MyFunction extends FunctionRuntime {
 
     const resource = required[0];
     logger.info({ resource }, 'Required Resource (loaded by helper function)');
-  }
-
-  @Handler()
-  example9(@Observed('bucket') observed?: Resource): void {
-    if (!observed) return;
-    logger.info({ observed }, 'Observed Resource');
   }
 }
 

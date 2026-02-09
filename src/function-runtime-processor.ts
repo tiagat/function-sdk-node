@@ -65,7 +65,7 @@ class FunctionRuntimeProcessor {
     return resources ? resources.items : undefined;
   }
 
-  getObserved(name: string): Resource | undefined {
+  getComposed(name: string): Resource | undefined {
     return this.call.request.observed?.resources[name];
   }
 }

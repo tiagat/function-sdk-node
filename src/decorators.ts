@@ -68,7 +68,7 @@ export function Required(name: string): ParameterDecorator {
   return decoratorRegistry(method, name);
 }
 
-export function Observed(name: string): ParameterDecorator {
-  const method: RuntimeFunctionProcessorMethod = 'getObserved';
+export function Composed(name: string): ParameterDecorator {
+  const method: RuntimeFunctionProcessorMethod = 'getComposed';
   return decoratorRegistry(method, name);
 }
