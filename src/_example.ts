@@ -1,6 +1,7 @@
 import { Logger, FunctionRuntime } from './index';
 import { Handler, Req, Res, Ctx, Env, Input, Composite, Required } from './index';
-import { Request, Response, Resource } from './index';
+import { Request, Response, Resource, ResourceSelector } from './index';
+import { requiredResource } from './index';
 
 const logger = new Logger();
 
@@ -50,7 +51,21 @@ class MyFunction extends FunctionRuntime {
     ]
   })
   example7(@Req() req: Request, @Res() res: Response): void {
-    logger.info({ req, res }, 'Required Resource (loaded by helper function)');
+    const selector: ResourceSelector = {
+      requirementName: 'app-config-dynamic-2',
+      apiVersion: 'v1',
+      kind: 'ConfigMap',
+      namespace: 'default',
+      matchName: 'app-config-dynamic'
+    };
+
+    const required = requiredResource(selector, req, res);
+    if (!required || required.length === 0) {
+      return;
+    }
+
+    const resource = required[0];
+    logger.info({ resource }, 'Required Resource (loaded by helper function)');
   }
 }
 

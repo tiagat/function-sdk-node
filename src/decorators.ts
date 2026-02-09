@@ -1,5 +1,6 @@
 import { Entrypoint, EntrypointFunction } from './entrypoints';
 import { RuntimeFunctionProcessorMethod } from './function-runtime-processor';
+import { ResourceSelector } from './interfaces';
 
 const decoratorRegistry = (processorMethod: RuntimeFunctionProcessorMethod, methodParameter: unknown): ParameterDecorator => {
   return (_target, propertyKey, parameterIndex) => {
@@ -11,17 +12,8 @@ const isAsync = (fn: EntrypointFunction): boolean => {
   return fn.constructor && fn.constructor.name === 'AsyncFunction';
 };
 
-interface HandlerOptionsRequired {
-  requirementName: string;
-  apiVersion: string;
-  kind: string;
-  namespace?: string;
-  matchName?: string;
-  matchLabels?: Record<string, string>;
-}
-
 export interface HandlerOptions {
-  required?: HandlerOptionsRequired[];
+  required?: ResourceSelector[];
 }
 
 export function Handler(options?: HandlerOptions): MethodDecorator {
