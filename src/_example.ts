@@ -50,7 +50,14 @@ class MyFunction extends FunctionRuntime {
       }
     ]
   })
-  example7(@Req() req: Request, @Res() res: Response): void {
+  example7(@Required('app-config-dynamic-1') required?: Resource[]): void {
+    if (!required || required.length === 0) return;
+    const resource = required[0];
+    logger.info({ resource }, 'Required Resource (loaded by handler configuration)');
+  }
+
+  @Handler()
+  example8(@Req() req: Request, @Res() res: Response): void {
     const selector: ResourceSelector = {
       requirementName: 'app-config-dynamic-2',
       apiVersion: 'v1',
