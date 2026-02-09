@@ -18,3 +18,10 @@ metadata:
   name: simple-config
 data:
   message: 'hello'
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: advanced-config
+data:
+  message: 'hello'
