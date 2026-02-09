@@ -2,7 +2,7 @@ import { Resource, RunFunctionRequest, RunFunctionResponse } from './gen/proto/r
 import { ResourceSelector } from './interfaces';
 import { FunctionRequirements } from './function-requirements';
 
-export function requiredResource(selector: ResourceSelector, req: RunFunctionRequest, res: RunFunctionResponse): Resource[] | undefined {
+export function requiredResource(req: RunFunctionRequest, res: RunFunctionResponse, selector: ResourceSelector): Resource[] | undefined {
   FunctionRequirements.registerSelector(selector);
   FunctionRequirements.updateRequirements(res);
   return req.requiredResources[selector.requirementName]?.items;

@@ -72,7 +72,7 @@ class MyFunction extends FunctionRuntime {
       matchName: 'app-config-dynamic'
     };
 
-    const required = requiredResource(selector, req, res);
+    const required = requiredResource(req, res, selector);
     if (!required || required.length === 0) {
       return;
     }
