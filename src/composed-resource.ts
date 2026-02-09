@@ -2,7 +2,6 @@ import { Ready, Resource, RunFunctionRequest, RunFunctionResponse } from './gen/
 
 export class ComposedResource implements Resource {
   #name: string;
-  #req: RunFunctionRequest;
   #res: RunFunctionResponse;
 
   #resource?: Record<string, unknown>;
@@ -32,9 +31,12 @@ export class ComposedResource implements Resource {
   }
 
   constructor(req: RunFunctionRequest, res: RunFunctionResponse, name: string) {
-    this.#req = req;
     this.#res = res;
     this.#name = name;
+
+    if (!this.#res.desired) {
+      this.#res.desired = { resources: {} };
+    }
 
     const existing = req.observed?.resources[name];
     if (existing) {
@@ -45,11 +47,8 @@ export class ComposedResource implements Resource {
   }
 
   update(): void {
-    if (!this.#res.desired) {
-      this.#res.desired = { resources: {} };
-    }
     if (this.#resource) {
-      this.#res.desired.resources[this.#name] = this.toObject();
+      this.#res.desired!.resources[this.#name] = this.toObject();
     }
   }
 
