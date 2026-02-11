@@ -185,6 +185,17 @@ Environment data is most commonly populated by the:
 
 ### @Input()
 
+The `@Input()` parameter decorator provides access to the function’s input block defined in the Crossplane Composition pipeline.
+
+It allows you to retrieve strongly-typed input data that is passed to your function from the Composition.
+
+```typescript
+@Handler()
+example(@Input() input?: Record<string, unknown>): void {
+  logger.info({ input }, 'Function Input');
+}
+```
+
 ### @Composite()
 
 ### Composed()
