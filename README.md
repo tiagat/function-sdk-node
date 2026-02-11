@@ -50,7 +50,7 @@ ls function-example
 ```
 
 ## FunctionRuntime
-FunctionRuntime is the base class that must be extended to implement a Crossplane Function in Node.js.
+`FunctionRuntime` is the base class that must be extended to implement a Crossplane Function in Node.js.
 
 Under the hood, it starts a gRPC server that communicates with Crossplane and the Crossplane CLI. The SDK abstracts away all low-level gRPC details, allowing you to focus entirely on business logic.
 
