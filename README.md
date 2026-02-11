@@ -79,3 +79,57 @@ class MyFunction extends FunctionRuntime {
 new MyFunction();
 
 ```
+
+## Method Decorator
+
+### @Handler()
+
+The `@Handler()` decorator marks a method as a  entry point that will be executed when Crossplane invokes your function.
+
+
+Behavior
+-	There is no limit to the number of methods that can be decorated with `@Handler()`.
+-	All decorated methods will be executed when Crossplane calls the function one by one.
+-	Adding `@Handler()` to an async method works exactly the same way as with regular function
+
+Example
+
+```typescript
+class MyFunction extends FunctionRuntime {
+
+  @Handler()
+  handleSync() {
+    console.log("Fist handler executed");
+  }
+
+  @Handler()
+  async handleAsync(): Promise<void> {
+    await someAsyncOperation();
+    console.log("Second handler executed");
+  }
+}
+```
+
+## Parameter Decorators
+
+### @Req() and @Res()
+
+```typescript
+@Handler()
+example(@Req() req: Request, @Res() res: Response): void {
+  logger.info({ req }, 'Received request');
+  logger.info({ res }, 'Function Response');
+}
+```
+
+### @Ctx()
+
+### @Env()
+
+### @Input()
+
+### @Composite()
+
+### Composed()
+
+### @Required()
