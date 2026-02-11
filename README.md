@@ -168,22 +168,22 @@ This means:
 The `@Ctx()` parameter decorator provides access to the current Crossplane Function Context.
 It allows you to read and modify contextual data that flows between functions in a Composition pipeline.
 
-**What is Context in Crossplane Composition?**
-
-In a Crossplane Composition pipeline, multiple functions may be executed sequentially.
-
-Each function receives:
-	•	The **observed state**
-	•	The **desired state**
-	•	An optional **context** object
-
-The context is:
-	•	A JSON-like structured object
-	•	Passed from one function to the next
-	•	Mutable during pipeline execution
-	•	Discarded after the final function completes
-
-This enables lightweight communication between functions within the same pipeline run.
+>**What is Context in Crossplane Composition?**
+>
+>In a Crossplane Composition pipeline, multiple functions may be executed sequentially.
+>
+>Each function receives:
+>-	The **observed state**
+>- The **desired state**
+>- An optional **context** object
+>
+>The context is:
+>- A JSON-like structured object
+>- Passed from one function to the next
+>- Mutable during pipeline execution
+>- Discarded after the final function completes
+>
+>This enables lightweight communication between functions within the same pipeline run.
 
 The `@Env()` parameter decorator provides access to the pipeline environment configuration.
 
@@ -193,12 +193,13 @@ Internally, environment data is stored within the pipeline context, but `@Env()`
 
 In Crossplane Composition pipelines, the environment typically represents shared configuration values that apply across multiple functions.
 
-Environment data is most commonly populated by the official: [function-environment-configs](https://github.com/crossplane-contrib/function-environment-configs) This function reads EnvironmentConfig resources and injects their values into the pipeline context so that subsequent functions can consume them.
+>Environment data is most commonly populated by the official: 
+>[function-environment-configs](https://github.com/crossplane-contrib/function-environment-configs) This function reads EnvironmentConfig resources and injects their values into the pipeline context so that subsequent functions can >consume them.
 
 
 **Example**
 
-```
+```typescript
   @Handler()
   example2(@Ctx() ctx: Record<string, unknown>): void {
     logger.info({ ctx }, 'Function Context');
