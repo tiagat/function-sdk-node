@@ -6,6 +6,8 @@ import { Entrypoint, EntrypointFunction } from './entrypoints';
 import { FunctionRequirements } from './function-requirements';
 import { FunctionRuntimeProcessor, RuntimeFunctionProcessorMethod } from './function-runtime-processor';
 
+import { runWithRuntimeContext } from './function-runtime-context';
+
 interface RuntimeFunctionHandlerContext {
   call: grpc.ServerUnaryCall<RunFunctionRequest, RunFunctionResponse>;
   callback: grpc.sendUnaryData<RunFunctionResponse>;
@@ -22,30 +24,34 @@ class RuntimeFunctionHandler {
   }
 
   async runEntrypoints(): Promise<RunFunctionResponse> {
-    const response = this.processor.getResponse();
-    FunctionRequirements.updateRequirements(response);
+    const res = this.processor.getResponse();
+    const req = this.processor.getRequest();
 
-    for (const handler of Entrypoint.values()) {
-      if (handler.fn) {
-        const handlerArgsMeta = handler.args.sort((a, b) => a.index - b.index);
-        const argsCount = handlerArgsMeta.length ? Math.max(...handlerArgsMeta.map((arg) => arg.index)) + 1 : 0;
-        const args = Array(argsCount);
+    FunctionRequirements.updateRequirements(res);
 
-        for (const arg of handlerArgsMeta) {
-          const methodName = arg.name as RuntimeFunctionProcessorMethod;
-          const callback = this.processor[methodName] as EntrypointFunction;
-          const result = callback.apply(this.processor, [arg.value]);
-          args[arg.index] = result;
-        }
+    await runWithRuntimeContext({ req, res }, async () => {
+      for (const handler of Entrypoint.values()) {
+        if (handler.fn) {
+          const handlerArgsMeta = handler.args.sort((a, b) => a.index - b.index);
+          const argsCount = handlerArgsMeta.length ? Math.max(...handlerArgsMeta.map((arg) => arg.index)) + 1 : 0;
+          const args = Array(argsCount);
 
-        const result = handler.fn.apply(this.functionContext, args);
-        if (handler.async) {
-          await Promise.resolve(result);
+          for (const arg of handlerArgsMeta) {
+            const methodName = arg.name as RuntimeFunctionProcessorMethod;
+            const callback = this.processor[methodName] as EntrypointFunction;
+            const result = callback.apply(this.processor, [arg.value]);
+            args[arg.index] = result;
+          }
+
+          const result = handler.fn.apply(this.functionContext, args);
+          if (handler.async) {
+            await Promise.resolve(result);
+          }
         }
       }
-    }
+    });
 
-    return response;
+    return res;
   }
 }
 

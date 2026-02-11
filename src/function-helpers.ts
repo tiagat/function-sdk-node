@@ -1,20 +1,21 @@
-import { Resource, RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
+import { Resource } from './gen/proto/run_function';
 import { ResourceSelector } from './interfaces';
 import { FunctionRequirements } from './function-requirements';
 import { ComposedResource } from './composed-resource';
 
-export function requiredResource(req: RunFunctionRequest, res: RunFunctionResponse, selector: ResourceSelector): Resource[] | undefined {
+import { getRuntimeContext } from './function-runtime-context';
+
+export function requiredResource(selector: ResourceSelector): Resource[] | undefined {
+  const context = getRuntimeContext();
+  const { req, res } = context;
   FunctionRequirements.registerSelector(selector);
   FunctionRequirements.updateRequirements(res);
   return req.requiredResources[selector.requirementName]?.items;
 }
 
-export function composedResource(
-  req: RunFunctionRequest,
-  res: RunFunctionResponse,
-  compositionName: string,
-  resource?: { [key: string]: unknown }
-): ComposedResource {
+export function composedResource(compositionName: string, resource?: { [key: string]: unknown }): ComposedResource {
+  const context = getRuntimeContext();
+  const { req, res } = context;
   const desiredResource = new ComposedResource(req, res, compositionName);
   if (resource) {
     desiredResource.resource = { ...resource };

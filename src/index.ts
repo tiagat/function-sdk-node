@@ -4,4 +4,4 @@ export { RunFunctionResponse as Response, RunFunctionRequest as Request, Resourc
 
 export * from './interfaces';
 export * from './decorators';
-export * from './helpers';
+export * from './function-helpers';
