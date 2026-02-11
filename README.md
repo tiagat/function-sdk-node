@@ -49,9 +49,24 @@ ls function-example
 !!! 🚧 TBD !!!
 ```
 
-## Edit the template to add the function’s logic
+## FunctionRuntime
+FunctionRuntime is the base class that must be extended to implement a Crossplane Function in Node.js.
 
-You should implement your function’s logic in any method with `@Handler()` decorator in `index.ts`. When you first open the file it contains a "hello world" function.
+Under the hood, it starts a gRPC server that communicates with Crossplane and the Crossplane CLI. The SDK abstracts away all low-level gRPC details, allowing you to focus entirely on business logic.
+
+
+**What It Does**
+
+When your class extends FunctionRuntime, the SDK:
+
+-	Starts a gRPC server implementing the Crossplane FunctionRunnerService
+- Listens for RunFunction requests from Crossplane (in-cluster) or Crossplane CLI
+- Parses and maps the incoming request into typed runtime objects
+- Executes all registered @Handler() methods
+- Collects and returns the resulting RunFunctionResponse
+
+
+**Basic Usage**
 
 ```typescript
 import { 
@@ -85,7 +100,6 @@ new MyFunction();
 
 The `@Handler()` decorator marks a method as a  entry point that will be executed when Crossplane invokes your function.
 
-
 Behavior
 -	There is no limit to the number of methods that can be decorated with `@Handler()`.
 -	All decorated methods will be executed when Crossplane calls the function one by one.
@@ -113,6 +127,24 @@ class MyFunction extends FunctionRuntime {
 
 ### @Req() and @Res()
 
+The `@Req()` and `@Res()` parameter decorators provide direct access to the underlying FunctionRequest and FunctionResponse objects.
+
+These decorators are intended for advanced use cases where the higher-level SDK helpers are not sufficient and you need full control over the request/response lifecycle.
+
+In most cases, you should rely on the built-in decorators and helper methods such as:
+	•	@Composite()
+	•	@Composed()
+	•	@Ctx()
+	•	etc.
+
+However, if you:
+	•	Need to access raw observed or desired state
+	•	Want to manipulate the response at a low level
+	•	Need full control over metadata, TTL, conditions, or results
+	•	Know exactly what you are doing and require complete flexibility
+
+You can inject the raw objects using `@Req()` and `@Res()`.
+
 ```typescript
 @Handler()
 example(@Req() req: Request, @Res() res: Response): void {
@@ -121,7 +153,64 @@ example(@Req() req: Request, @Res() res: Response): void {
 }
 ```
 
+**Important**
+
+Using `@Req()` and `@Res()` bypasses some of the higher-level abstractions provided by the SDK.
+
+This means:
+	•	You are responsible for maintaining response integrity
+	•	You must ensure desired state are valid
+	•	Improper mutations may lead to unexpected Crossplane behavior
+
+
 ### @Ctx() and @Env()
+
+The `@Ctx()` parameter decorator provides access to the current Crossplane Function Context.
+It allows you to read and modify contextual data that flows between functions in a Composition pipeline.
+
+**What is Context in Crossplane Composition?**
+
+In a Crossplane Composition pipeline, multiple functions may be executed sequentially.
+
+Each function receives:
+	•	The **observed state**
+	•	The **desired state**
+	•	An optional **context** object
+
+The context is:
+	•	A JSON-like structured object
+	•	Passed from one function to the next
+	•	Mutable during pipeline execution
+	•	Discarded after the final function completes
+
+This enables lightweight communication between functions within the same pipeline run.
+
+The `@Env()` parameter decorator provides access to the pipeline environment configuration.
+
+It is conceptually similar to `@Ctx()`, but specifically designed for working with environment-level configuration data inside a Crossplane Composition pipeline.
+
+Internally, environment data is stored within the pipeline context, but `@Env()` provides a clean, purpose-specific abstraction for accessing it.
+
+In Crossplane Composition pipelines, the environment typically represents shared configuration values that apply across multiple functions.
+
+Environment data is most commonly populated by the official: [function-environment-configs](https://github.com/crossplane-contrib/function-environment-configs) This function reads EnvironmentConfig resources and injects their values into the pipeline context so that subsequent functions can consume them.
+
+
+**Example**
+
+```
+  @Handler()
+  example2(@Ctx() ctx: Record<string, unknown>): void {
+    logger.info({ ctx }, 'Function Context');
+    ctx['myValue'] = 'example';
+  }
+
+  @Handler()
+  example3(@Env() env: Record<string, unknown>): void {
+    logger.info({ env }, 'Environment Config');
+    env['myValue'] = 'example';
+  }
+```
 
 ### @Input()
 
