@@ -96,7 +96,7 @@ new MyFunction();
 
 ## Method Decorator
 
-### @Handler()
+#### @Handler()
 
 The `@Handler()` decorator marks a method as a  entry point that will be executed when Crossplane invokes your function.
 
@@ -124,7 +124,7 @@ class MyFunction extends FunctionRuntime {
 
 ## Parameter Decorators
 
-### @Req() and @Res()
+#### @Req() and @Res()
 
 The `@Req()` and `@Res()` parameter decorators provide direct access to the underlying FunctionRequest and FunctionResponse objects.
 
@@ -152,7 +152,7 @@ example(@Req() req: Request, @Res() res: Response): void {
 }
 ```
 
-### @Ctx() and @Env()
+#### @Ctx() and @Env()
 
 The `@Ctx()` parameter decorator provides access to the current Crossplane Function Context.
 It allows you to read and modify contextual data that flows between functions in a Composition pipeline.
@@ -180,7 +180,7 @@ Environment data is most commonly populated by the:
   }
 ```
 
-### @Input()
+#### @Input()
 
 The `@Input()` parameter decorator provides access to the function’s input block defined in the Crossplane Composition pipeline.
 
@@ -193,7 +193,7 @@ example(@Input() input?: Record<string, unknown>): void {
 }
 ```
 
-### @Composite()
+#### @Composite()
 
 The `@Composite()` parameter decorator provides read-only access to the Composite Resource (XR) currently being processed.
 
@@ -204,7 +204,7 @@ example(@Composite() composite?: Resource): void {
 }
 ```
 
-### @Composed(name:string)
+#### @Composed(name:string)
 
 The `@Composed()` parameter decorator provides read-only access to the resources created by the Composition.
 
@@ -218,4 +218,4 @@ example(@Composed('bucket') composed?: Resource): void {
 }
 ```
 
-### @Required()
+#### @Required()
