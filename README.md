@@ -168,13 +168,13 @@ Environment data is most commonly populated by the:
 
 ```typescript
   @Handler()
-  example2(@Ctx() ctx: Record<string, unknown>): void {
+  example(@Ctx() ctx: Record<string, unknown>): void {
     logger.info({ ctx }, 'Function Context');
     ctx['myValue'] = 'example';
   }
 
   @Handler()
-  example3(@Env() env: Record<string, unknown>): void {
+  example(@Env() env: Record<string, unknown>): void {
     logger.info({ env }, 'Environment Config');
     env['myValue'] = 'example';
   }
