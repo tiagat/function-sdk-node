@@ -105,7 +105,6 @@ Behavior
 -	All decorated methods will be executed when Crossplane calls the function one by one.
 -	Adding `@Handler()` to an async method works exactly the same way as with regular function
 
-**Example**
 
 ```typescript
 class MyFunction extends FunctionRuntime {
@@ -198,6 +197,27 @@ example(@Input() input?: Record<string, unknown>): void {
 
 ### @Composite()
 
-### Composed()
+The `@Composite()` parameter decorator provides read-only access to the Composite Resource (XR) currently being processed.
+
+```typescript
+@Handler()
+example(@Composite() composite?: Resource): void {
+  logger.info({ composite }, 'Observed Composite Resource');
+}
+```
+
+### Composed(name:string)
+
+The `@Composed()` parameter decorator provides read-only access to the resources created by the Composition.
+
+While `@Composite()` gives you the high-level XR (Composite Resource), @Composed() lets you inspect the individual composed resources that were created as part of that Composition.
+
+```
+@Handler()
+example(@Composed('bucket') composed?: Resource): void {
+  if (!composed) return;
+  this.logger.info({ composed }, 'Observed Composed Resource');
+}
+```
 
 ### @Required()
