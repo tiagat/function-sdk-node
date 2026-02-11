@@ -51,6 +51,8 @@ ls function-example
 
 ## Edit the template to add the function’s logic
 
+You should implement your function’s logic in any method with `@Handler()` decorator in `index.ts`. When you first open the file it contains a "hello world" function.
+
 ```typescript
 import { 
   Logger, FunctionRuntime,
