@@ -96,7 +96,7 @@ class MyFunction extends FunctionRuntime {
         }
       }
     };
-    this.logger.info({ bucket: bucket.toObject() }, 'Desired State');
+    this.logger.info({ bucket: bucket.resource }, 'Desired State');
   }
 }
 
