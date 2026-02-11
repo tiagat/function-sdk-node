@@ -214,7 +214,7 @@ While `@Composite()` gives you the high-level XR (Composite Resource), `@Compose
 @Handler()
 example(@Composed('bucket') composed?: Resource): void {
   if (!composed) return;
-  this.logger.info({ composed }, 'Observed Composed Resource');
+  logger.info({ composed }, 'Observed Composed Resource');
 }
 ```
 
