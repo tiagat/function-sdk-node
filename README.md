@@ -166,8 +166,6 @@ Environment data is most commonly populated by the:
 [function-environment-configs](https://github.com/crossplane-contrib/function-environment-configs) This function reads EnvironmentConfig resources and injects their values into the pipeline context so that subsequent functions can consume them.
 
 
-**Example**
-
 ```typescript
   @Handler()
   example2(@Ctx() ctx: Record<string, unknown>): void {
