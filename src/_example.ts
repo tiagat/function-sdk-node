@@ -83,8 +83,7 @@ class MyFunction extends FunctionRuntime {
 
   @Handler()
   example10(): void {
-    const bucket = composedResource('bucket-secondary');
-    bucket.resource = {
+    const resource = {
       apiVersion: 's3.aws.m.upbound.io/v1beta1',
       kind: 'Bucket',
       annotations: {
@@ -94,6 +93,12 @@ class MyFunction extends FunctionRuntime {
         forProvider: {
           region: 'eu-west-1'
         }
+      }
+    };
+    const bucket = composedResource('bucket-secondary', resource);
+    bucket.resource = {
+      annotations: {
+        'crossplane.io/external-name:': 'updated-bucket-secondary.tiagat.dev'
       }
     };
     this.logger.info({ bucket: bucket.resource }, 'Desired State');
