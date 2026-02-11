@@ -208,7 +208,7 @@ example(@Composite() composite?: Resource): void {
 
 The `@Composed()` parameter decorator provides read-only access to the resources created by the Composition.
 
-While `@Composite()` gives you the high-level XR (Composite Resource), @Composed() lets you inspect the individual composed resources that were created as part of that Composition.
+While `@Composite()` gives you the high-level XR (Composite Resource), `@Composed()` lets you inspect the individual composed resources that were created as part of that Composition.
 
 ```typescript
 @Handler()
