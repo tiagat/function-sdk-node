@@ -153,48 +153,18 @@ example(@Req() req: Request, @Res() res: Response): void {
 }
 ```
 
-**Important**
-
-Using `@Req()` and `@Res()` bypasses some of the higher-level abstractions provided by the SDK.
-
-This means:
-	•	You are responsible for maintaining response integrity
-	•	You must ensure desired state are valid
-	•	Improper mutations may lead to unexpected Crossplane behavior
-
-
 ### @Ctx() and @Env()
 
 The `@Ctx()` parameter decorator provides access to the current Crossplane Function Context.
 It allows you to read and modify contextual data that flows between functions in a Composition pipeline.
 
->**What is Context in Crossplane Composition?**
->
->In a Crossplane Composition pipeline, multiple functions may be executed sequentially.
->
->Each function receives:
->-	The **observed state**
->- The **desired state**
->- An optional **context** object
->
->The context is:
->- A JSON-like structured object
->- Passed from one function to the next
->- Mutable during pipeline execution
->- Discarded after the final function completes
->
->This enables lightweight communication between functions within the same pipeline run.
 
 The `@Env()` parameter decorator provides access to the pipeline environment configuration.
 
 It is conceptually similar to `@Ctx()`, but specifically designed for working with environment-level configuration data inside a Crossplane Composition pipeline.
 
-Internally, environment data is stored within the pipeline context, but `@Env()` provides a clean, purpose-specific abstraction for accessing it.
-
-In Crossplane Composition pipelines, the environment typically represents shared configuration values that apply across multiple functions.
-
->Environment data is most commonly populated by the official: 
->[function-environment-configs](https://github.com/crossplane-contrib/function-environment-configs) This function reads EnvironmentConfig resources and injects their values into the pipeline context so that subsequent functions can >consume them.
+Environment data is most commonly populated by the: 
+[function-environment-configs](https://github.com/crossplane-contrib/function-environment-configs) This function reads EnvironmentConfig resources and injects their values into the pipeline context so that subsequent functions can consume them.
 
 
 **Example**
