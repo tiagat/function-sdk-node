@@ -61,7 +61,6 @@ import {
 } from '@tiagat/function-sdk-node';
 
 
-
 class MyFunction extends FunctionRuntime {
   logger = new Logger();
 
@@ -92,7 +91,7 @@ Behavior
 -	All decorated methods will be executed when Crossplane calls the function one by one.
 -	Adding `@Handler()` to an async method works exactly the same way as with regular function
 
-Example
+**Example**
 
 ```typescript
 class MyFunction extends FunctionRuntime {
@@ -122,9 +121,7 @@ example(@Req() req: Request, @Res() res: Response): void {
 }
 ```
 
-### @Ctx()
-
-### @Env()
+### @Ctx() and @Env()
 
 ### @Input()
 
