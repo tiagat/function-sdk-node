@@ -204,7 +204,7 @@ example(@Composite() composite?: Resource): void {
 }
 ```
 
-### Composed(name:string)
+### @Composed(name:string)
 
 The `@Composed()` parameter decorator provides read-only access to the resources created by the Composition.
 
