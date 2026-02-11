@@ -34,6 +34,7 @@ You can write a function to template resources using a general purpose programmi
 
 ## Initialize the function from a template
 
+
 Use the `crossplane xpkg init` command to initialize a new function. When you run this command it initializes your function using a [GitHub repository](https://github.com/tiagat/function-template-node) as a template.
 
 ```bash
@@ -45,8 +46,34 @@ The `crossplane xpkg init` command creates a directory named function-xbuckets. 
 ```bash
 ls function-example
 
-!!! TBD !!!
+!!! 🚧 TBD !!!
 ```
 
 ## Edit the template to add the function’s logic
 
+```typescript
+import { 
+  Logger, FunctionRuntime,
+  Handler, Req, Res, Composite,
+  Request, Response, Resource
+} from '@tiagat/function-sdk-node';
+
+
+
+class MyFunction extends FunctionRuntime {
+  logger = new Logger();
+
+  @Handler()
+  example1(@Req() req: Request, @Res() res: Response): void {
+    this.logger.info({ res }, 'Function Request/Response');
+  }
+
+  @Handler()
+  example2(@Composite() composite?: Resource): void {
+    this.logger.info({ composite }, 'Observed Composite Resource');
+  }
+}
+
+new MyFunction();
+
+```
