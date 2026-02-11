@@ -210,7 +210,7 @@ The `@Composed()` parameter decorator provides read-only access to the resources
 
 While `@Composite()` gives you the high-level XR (Composite Resource), @Composed() lets you inspect the individual composed resources that were created as part of that Composition.
 
-```
+```typescript
 @Handler()
 example(@Composed('bucket') composed?: Resource): void {
   if (!composed) return;
