@@ -132,16 +132,16 @@ The `@Req()` and `@Res()` parameter decorators provide direct access to the unde
 These decorators are intended for advanced use cases where the higher-level SDK helpers are not sufficient and you need full control over the request/response lifecycle.
 
 In most cases, you should rely on the built-in decorators and helper methods such as:
-	•	@Composite()
-	•	@Composed()
-	•	@Ctx()
-	•	etc.
+- `@Composite()`
+- `@Composed()`
+- `@Ctx()`
+- etc.
 
 However, if you:
-	•	Need to access raw observed or desired state
-	•	Want to manipulate the response at a low level
-	•	Need full control over metadata, TTL, conditions, or results
-	•	Know exactly what you are doing and require complete flexibility
+- Need to access raw observed or desired state
+- Want to manipulate the response at a low level
+- Need full control over metadata, TTL, conditions, or results
+- Know exactly what you are doing and require complete flexibility
 
 You can inject the raw objects using `@Req()` and `@Res()`.
 
