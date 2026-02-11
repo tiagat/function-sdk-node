@@ -62,7 +62,7 @@ When your class extends FunctionRuntime, the SDK:
 -	Starts a gRPC server implementing the Crossplane FunctionRunnerService
 - Listens for RunFunction requests from Crossplane (in-cluster) or Crossplane CLI
 - Parses and maps the incoming request into typed runtime objects
-- Executes all registered @Handler() methods
+- Executes all registered `@Handler()` methods
 - Collects and returns the resulting RunFunctionResponse
 
 
