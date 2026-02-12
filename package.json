@@ -1,6 +1,6 @@
 {
   "name": "function-sdk-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "TypeScript Node.js SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -20,7 +20,6 @@
   },
   "author": "Ruslan Sakal",
   "devDependencies": {
-    "@bufbuild/buf": "^1.65.0",
     "@types/node": "^20.19.32",
     "@typescript-eslint/eslint-plugin": "^6.21.0",
     "@typescript-eslint/parser": "^6.21.0",
@@ -39,6 +38,7 @@
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.14.3",
+    "@bufbuild/buf": "^1.65.0",
     "pino": "^10.3.0"
   }
 }
