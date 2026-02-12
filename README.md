@@ -226,7 +226,7 @@ SDK allows a function to declare additional Kubernetes resources that must be re
 Functions can receive required resources in three ways:
 
 
-**1. Static Configuration** :  `@Required(name: string)`
+**1. Static Configuration** :  `@Required(name: string)` composition pipeline + parameter decorator
 
 
 ```yaml
@@ -262,7 +262,7 @@ example(@Required('app-config-static') required?: Resource[]): void {
 }
 ```
 
-**2. Static Request** :  `@Handler({ required: [] })`
+**2. Static Request** :  `@Handler({ required: [] })` method decorator + parameter decorator
 
 ```typescript
 @Handler({
@@ -283,7 +283,7 @@ example(@Required('app-config-dynamic-1') required?: Resource[]): void {
 }
 ```
 
-**3. Dynamic Request** :  `requiredResource(selector: ResourceSelector)`
+**3. Dynamic Request** :  `requiredResource(selector: ResourceSelector)` helper
 
 ```typescript
 @Handler()
