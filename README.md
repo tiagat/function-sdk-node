@@ -314,20 +314,20 @@ While decorators like @Composite() and @Composed() provide read-only access to o
 
 ```typescript
 @Handler()
-  example(): void {
-    const resource = {
-      apiVersion: 's3.aws.m.upbound.io/v1beta1',
-      kind: 'Bucket',
-      annotations: {
-        'crossplane.io/external-name:': 'bucket-primary.example.io'
-      },
-      spec: {
-        forProvider: {
-          region: 'eu-west-1'
-        }
+example(): void {
+  const resource = {
+    apiVersion: 's3.aws.m.upbound.io/v1beta1',
+    kind: 'Bucket',
+    annotations: {
+      'crossplane.io/external-name:': 'bucket-primary.example.io'
+    },
+    spec: {
+      forProvider: {
+        region: 'eu-west-1'
       }
-    };
-    const bucket = composedResource('bucket-primary', resource);
-    logger.info({ bucket: bucket.resource }, 'Desired State');
-  }
+    }
+  };
+  const bucket = composedResource('bucket-primary', resource);
+  logger.info({ bucket: bucket.resource }, 'Desired State');
+}
 ```
