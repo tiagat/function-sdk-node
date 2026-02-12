@@ -305,3 +305,29 @@ example(): void {
   logger.info({ resource }, 'Required Resource (loaded by helper function)');
 }
 ```
+
+#### Create Resources
+
+The `composedResource(name: string, resource: Records<string, unknown>)` helper is used to create a new composed resource and add it to the desired state.
+
+While decorators like @Composite() and @Composed() provide read-only access to observed resources, composedResource() is the proper way to declare new resources that should be created or updated by Crossplane.
+
+```typescript
+@Handler()
+  example(): void {
+    const resource = {
+      apiVersion: 's3.aws.m.upbound.io/v1beta1',
+      kind: 'Bucket',
+      annotations: {
+        'crossplane.io/external-name:': 'bucket-primary.example.io'
+      },
+      spec: {
+        forProvider: {
+          region: 'eu-west-1'
+        }
+      }
+    };
+    const bucket = composedResource('bucket-primary', resource);
+    logger.info({ bucket: bucket.resource }, 'Desired State');
+  }
+```
