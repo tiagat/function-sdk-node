@@ -283,7 +283,7 @@ example(@Required('app-config-dynamic-1') required?: Resource[]): void {
 }
 ```
 
-**3. Dynamic Request** :  `requiredResource(selector: ResourceSelector)` helper
+**3. Dynamic Request** :  `requiredResource(selector: ResourceSelector)` helper function
 
 ```typescript
 @Handler()
