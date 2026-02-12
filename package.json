@@ -1,6 +1,6 @@
 {
   "name": "function-sdk-node",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "TypeScript Node.js SDK",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,11 +34,12 @@
     "rimraf": "^5.0.0",
     "ts-node": "^10.0.0",
     "ts-proto": "^2.11.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "@bufbuild/buf": "^1.65.0"
   },
   "dependencies": {
+    "@bufbuild/protobuf": "^2.11.0",
     "@grpc/grpc-js": "^1.14.3",
-    "@bufbuild/buf": "^1.65.0",
     "pino": "^10.3.0"
   }
 }
