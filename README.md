@@ -110,12 +110,12 @@ Behavior
 class MyFunction extends FunctionRuntime {
 
   @Handler()
-  handleSync() {
+  example1() {
     console.log("Fist handler executed");
   }
 
   @Handler()
-  async handleAsync(): Promise<void> {
+  async example2(): Promise<void> {
     await someAsyncOperation();
     console.log("Second handler executed");
   }
