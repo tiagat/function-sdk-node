@@ -218,4 +218,93 @@ example(@Composed('bucket') composed?: Resource): void {
 }
 ```
 
-#### @Required()
+
+#### Required Resources
+#### @Required(name: string), @Handle({ required: [] }), requiredResource(selector: ResourceSelector) 
+
+SDK allows a function to declare additional Kubernetes resources that must be requested by Crossplane before the function is executed.
+
+Functions can receive required resources in three ways:
+
+
+**1. Static Configuration** :  `@Required(name: string)`
+
+
+```yaml
+# composition.yaml
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: example-composition
+spec:
+  compositeTypeRef:
+    apiVersion: example.crossplane.io/v1
+    kind: ExampleClaim
+  mode: Pipeline
+  pipeline:
+    - step: render-template
+      requirements:
+        requiredResources:
+        - requirementName: app-config-static
+          apiVersion: v1
+          kind: ConfigMap
+          namespace: default
+          name: simple-config
+      functionRef:
+        name: function-example
+```
+
+```typescript
+// index.ts
+
+@Handler()
+example(@Required('app-config-static') required?: Resource[]): void {
+  if (!required || required.length === 0) return;
+  const resource = required[0];
+  logger.info({ resource }, 'Required Resource (loaded by composition configuration)');
+}
+```
+
+**2. Static Request** :  `@Handler({ required: [] })`
+
+```typescript
+@Handler({
+  required: [
+    {
+      requirementName: 'app-config-dynamic-1',
+      apiVersion: 'v1',
+      kind: 'ConfigMap',
+      namespace: 'default',
+      matchName: 'app-config-dynamic'
+    }
+  ]
+})
+example(@Required('app-config-dynamic-1') required?: Resource[]): void {
+  if (!required || required.length === 0) return;
+  const resource = required[0];
+  logger.info({ resource }, 'Required Resource (loaded by handler configuration)');
+}
+```
+
+**3. Dynamic Request** :  `requiredResource(selector: ResourceSelector)`
+
+```typescript
+@Handler()
+example(): void {
+  const selector: ResourceSelector = {
+    requirementName: 'app-config-dynamic-2',
+    apiVersion: 'v1',
+    kind: 'ConfigMap',
+    namespace: 'default',
+    matchName: 'app-config-dynamic'
+  };
+
+  const required = requiredResource(selector);
+  if (!required || required.length === 0) {
+    return;
+  }
+
+  const resource = required[0];
+  logger.info({ resource }, 'Required Resource (loaded by helper function)');
+}
+```
