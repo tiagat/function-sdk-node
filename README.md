@@ -220,7 +220,6 @@ example(@Composed('bucket') composed?: Resource): void {
 
 
 #### Required Resources
-#### @Required(name: string), @Handle({ required: [] }), requiredResource(selector: ResourceSelector) 
 
 SDK allows a function to declare additional Kubernetes resources that must be requested by Crossplane before the function is executed.
 
@@ -255,8 +254,6 @@ spec:
 ```
 
 ```typescript
-// index.ts
-
 @Handler()
 example(@Required('app-config-static') required?: Resource[]): void {
   if (!required || required.length === 0) return;
