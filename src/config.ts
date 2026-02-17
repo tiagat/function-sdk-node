@@ -11,9 +11,10 @@ export default {
     revisionUID: process.env.REVISION_UID
   },
   grpc: {
-    url: functionName ? `dns:///${functionName}.crossplane:9443` : 'localhost:9443',
+    // url: functionName ? `dns:///${functionName}.crossplane:9443` : 'localhost:9443',
+    url: functionName ? `0.0.0.0:9443` : 'localhost:9443',
     tlsCertsDir: process.env.TLS_SERVER_CERTS_DIR,
-    checkClientCertificate: true,
+    checkClientCertificate: false,
     shutdownTimeout: 10000
   }
 };
