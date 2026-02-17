@@ -1,4 +1,6 @@
 import * as grpc from '@grpc/grpc-js';
+import * as fs from 'fs';
+import * as path from 'path';
 
 import { FunctionRunnerServiceService, RunFunctionRequest, RunFunctionResponse } from './gen/proto/run_function';
 
@@ -59,8 +61,28 @@ export class FunctionRuntimeServer {
     });
   }
 
+  private getServerCredentials(certDir: string): grpc.ServerCredentials {
+    const caCert = fs.readFileSync(path.join(certDir, 'ca.crt'));
+    const serverCert = fs.readFileSync(path.join(certDir, 'tls.crt'));
+    const serverKey = fs.readFileSync(path.join(certDir, 'tls.key'));
+
+    return grpc.ServerCredentials.createSsl(
+      caCert,
+      [
+        {
+          private_key: serverKey,
+          cert_chain: serverCert
+        }
+      ],
+      config.grpc.checkClientCertificate
+    );
+  }
+
   public start(): void {
-    this.server.bindAsync(config.grpc.url, grpc.ServerCredentials.createInsecure(), (error, port) => {
+    const credentials = config.grpc.tlsCertsDir
+      ? this.getServerCredentials(config.grpc.tlsCertsDir)
+      : grpc.ServerCredentials.createInsecure();
+    this.server.bindAsync(config.grpc.url, credentials, (error, port) => {
       if (error) {
         logger.error(`Failed to bind server: ${error}`);
         process.exit(1);

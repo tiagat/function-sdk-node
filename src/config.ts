@@ -7,6 +7,8 @@ export default {
   },
   grpc: {
     url: '0.0.0.0:9443',
-    shutdownTimeout: 10000
+    tlsCertsDir: process.env.TLS_SERVER_CERTS_DIR,
+    checkClientCertificate: true,
+    shutdownTimeout: 10000,
   }
 };
